@@ -3,11 +3,15 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
-const MONGO_URI = process.env.MONGO_URI;
-const PORT = process.env.PORT;
+const userRoutes = require("./routes/userRoutes");
 
 app.use(cors());
 app.use(express.json());
+app.use("/auth", userRoutes);
+app.use((req, res, next) => {
+  console.log(req.method, req.path);
+  next();
+});
 
 app.get("/", (req, res) => {
   res
