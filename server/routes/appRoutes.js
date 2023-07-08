@@ -11,6 +11,7 @@ const {
   followUser,
   unfollowUser,
   searchUsers,
+  deleteUser
 } = require("../controllers/appControllers");
 
 const requireAuth = require("../middleware/requireAuth");
@@ -26,5 +27,7 @@ router.post("/like/:id", likePost)
 router.post("/unlike/:id", unlikePost)
 
 router.delete("/delete/:id", deletePost)
+
+router.delete("/delete-user/:id", deleteUser)
 
 module.exports = router;

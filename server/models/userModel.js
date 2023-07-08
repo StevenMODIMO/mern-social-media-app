@@ -9,7 +9,7 @@ const userSchema = mongoose.Schema({
   profile_url: String,
   followers: { type: Number, default: 0 },
   collections: [{
-    
+
   }],
   posts: [
     {
@@ -24,6 +24,7 @@ const userSchema = mongoose.Schema({
       ],
       likes: { type: Number, default: 0 },
       saved: { type: Number, default: 0 },
+      post_id: String
     },
   ],
 });
