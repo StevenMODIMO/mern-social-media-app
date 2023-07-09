@@ -39,6 +39,12 @@ router.post("/save-post/:id", savePost);
 
 router.delete("/unsave-post/:id", unsavePost);
 
+router.post("/comment/:id", commentPost);
+
+router.post("/follow/:username", followUser);
+
+router.post("/unfollow/:username", unfollowUser);
+
 router.delete("/delete-user/:id", deleteUser);
 
 module.exports = router;

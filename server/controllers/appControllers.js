@@ -197,6 +197,19 @@ const commentPost = async (req, res) => {
       },
       { new: true }
     );
+
+    const user = commentPost.posted_by;
+    await User.findOneAndUpdate(
+      { username: user, "posts.post_id": id },
+      {
+        $push: {
+          "posts.$.comments": {
+            commented_by: username,
+            comment: comment,
+          },
+        },
+      }
+    );
     res.status(200).json(commentPost);
   } catch (error) {
     res.status(400).json(error);
@@ -206,20 +219,70 @@ const commentPost = async (req, res) => {
 const deleteComment = async (req, res) => {
   const { id } = req.params;
   try {
-    const deleteCommment = await App.findOneAndDelete({});
+    const deleteComment = await App.findOneAndDelete({});
     res.status(200).json(deleteComment);
   } catch (error) {
     res.status(400).json(error);
   }
 };
 
-const likeComment = async (req, res) => {};
+const likeComment = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const like = await App.findOneAndUpdate({ _id: id });
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
 
 const unlikeComment = async (req, res) => {};
 
-const followUser = async (req, res) => {};
+const followUser = async (req, res) => {
+  const user = req.user.username;
+  const { username } = req.params;
+  try {
+    const getUserInfo = await User.findOne({ username: user });
+    const info = getUserInfo.username;
+    const follow = await User.findOneAndUpdate(
+      { username: username },
+      {
+        $push: {
+          followers: {
+            username: info,
+          },
+        },
+      },
+      { new: true }
+    );
+    res.status(200).json(follow);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
 
-const unfollowUser = async (req, res) => {};
+const unfollowUser = async (req, res) => {
+  const user = req.user.username;
+  const { username } = req.params;
+  try {
+    const getUserInfo = await User.findOne({ username: user });
+    const info = getUserInfo.username;
+    const unfollow = await User.findOneAndUpdate(
+      { username: username },
+      {
+        $pull: {
+          followers: {
+            username: info,
+          },
+        },
+      },
+      { new: true }
+    );
+
+    res.status(200).json(unfollow);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
 
 const searchUsers = async (req, res) => {};
 

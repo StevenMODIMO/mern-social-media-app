@@ -7,9 +7,8 @@ const userSchema = mongoose.Schema({
   password: String,
   username: String,
   profile_url: String,
-  followers: { type: Number, default: 0 },
-  collections: [{
-
+  followers: [{
+    username: String
   }],
   posts: [
     {
