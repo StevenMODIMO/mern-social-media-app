@@ -27,6 +27,11 @@ const userSchema = mongoose.Schema({
       post_id: String
     },
   ],
+  saved_post: [
+    {
+      post_id: String,
+    }
+  ]
 });
 
 userSchema.statics.signup = async function signup(

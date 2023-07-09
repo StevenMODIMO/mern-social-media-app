@@ -10,6 +10,25 @@ const getAllPosts = async (req, res) => {
   }
 };
 
+const getallUsers = async (req, res) => {
+  try {
+    const users = await User.find();
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+
+const getSingleUser = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const user = await User.findOne({ _id: id });
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+
 const createPost = async (req, res) => {
   const username = req.user.username;
   const { post } = req.body;
@@ -74,7 +93,7 @@ const deletePost = async (req, res) => {
   try {
     const deletePost = await App.findOneAndDelete({ _id: id }, { new: true });
     const user = deletePost.posted_by;
-    await User.findOneAndDelete(
+    await User.findOneAndUpdate(
       { username: user },
       {
         $pull: {
@@ -91,9 +110,75 @@ const deletePost = async (req, res) => {
   }
 };
 
-const savePost = async (req, res) => {};
+const savePost = async (req, res) => {
+  const { id } = req.params;
+  const username = req.user.username;
+  try {
+    const savePost = await User.findOneAndUpdate(
+      { username },
+      {
+        $push: {
+          saved_post: {
+            post_id: id,
+          },
+        },
+      },
+      { new: true }
+    );
 
-const unsavePost = async (req, res) => {};
+    const appStats = await App.findOneAndUpdate(
+      { _id: id },
+      { $inc: { saved: 1 } },
+      { new: true }
+    );
+
+    const user = appStats.posted_by;
+
+    await User.findOneAndUpdate(
+      { username: user, "posts.post_id": id },
+      { $inc: { "posts.$.saved": 1 } }
+    );
+
+    res.status(200).json(appStats);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+
+const unsavePost = async (req, res) => {
+  const { id } = req.params;
+  const username = req.user.username;
+  try {
+    const unsave = await User.findOneAndUpdate(
+      { username },
+      {
+        $pull: {
+          saved_post: {
+            post_id: id,
+          },
+        },
+      },
+      { new: true }
+    );
+
+    const appStats = await App.findOneAndUpdate(
+      { _id: id },
+      { $inc: { saved: -1 } },
+      { new: true }
+    );
+
+    const user = appStats.posted_by;
+
+    await User.findOneAndUpdate(
+      { username: user, "posts.post_id": id },
+      { $inc: { "posts.$.saved": -1 } }
+    );
+
+    res.status(400).json(unsave);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
 
 const commentPost = async (req, res) => {
   const { id } = req.params;
@@ -119,12 +204,12 @@ const commentPost = async (req, res) => {
 };
 
 const deleteComment = async (req, res) => {
-  const { id } = req.params
+  const { id } = req.params;
   try {
-    const deleteCommment = await App.findOneAndDelete({})
-    res.status(200).json(deleteComment)
-  } catch(error) {
-    res.status(400).json(error)
+    const deleteCommment = await App.findOneAndDelete({});
+    res.status(200).json(deleteComment);
+  } catch (error) {
+    res.status(400).json(error);
   }
 };
 
@@ -150,11 +235,14 @@ const deleteUser = async (req, res) => {
 
 module.exports = {
   getAllPosts,
+  getallUsers,
+  getSingleUser,
   createPost,
   likePost,
   unlikePost,
   deletePost,
   savePost,
+  unsavePost,
   commentPost,
   likeComment,
   followUser,
