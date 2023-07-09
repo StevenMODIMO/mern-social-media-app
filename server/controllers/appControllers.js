@@ -73,12 +73,18 @@ const deletePost = async (req, res) => {
   const { id } = req.params;
   try {
     const deletePost = await App.findOneAndDelete({ _id: id }, { new: true });
-    const user = deletePost.posted_by
-    await User.findOneAndDelete({username: user},{ $pull: {
-        posts: {
-            post_id: id
-        }
-    }}, { new: true})
+    const user = deletePost.posted_by;
+    await User.findOneAndDelete(
+      { username: user },
+      {
+        $pull: {
+          posts: {
+            post_id: id,
+          },
+        },
+      },
+      { new: true }
+    );
     res.status(200).json(deletePost);
   } catch (error) {
     res.status(400).json(error);
@@ -89,9 +95,38 @@ const savePost = async (req, res) => {};
 
 const unsavePost = async (req, res) => {};
 
-const commentPost = async (req, res) => {};
+const commentPost = async (req, res) => {
+  const { id } = req.params;
+  const { comment } = req.body;
+  const username = req.user.username;
+  try {
+    const commentPost = await App.findOneAndUpdate(
+      { _id: id },
+      {
+        $push: {
+          comments: {
+            commented_by: username,
+            comment: comment,
+          },
+        },
+      },
+      { new: true }
+    );
+    res.status(200).json(commentPost);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
 
-const deleteComment = async (req, res) => {};
+const deleteComment = async (req, res) => {
+  const { id } = req.params
+  try {
+    const deleteCommment = await App.findOneAndDelete({})
+    res.status(200).json(deleteComment)
+  } catch(error) {
+    res.status(400).json(error)
+  }
+};
 
 const likeComment = async (req, res) => {};
 
