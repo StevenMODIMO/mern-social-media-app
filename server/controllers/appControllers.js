@@ -229,7 +229,7 @@ const deleteUser = async (req, res) => {
     const del = await User.findOneAndDelete({ _id: id });
     res.status(200).json(del);
   } catch (error) {
-    res.statsu(400).json(error);
+    res.status(400).json(error);
   }
 };
 
