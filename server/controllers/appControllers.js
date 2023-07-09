@@ -284,7 +284,15 @@ const unfollowUser = async (req, res) => {
   }
 };
 
-const searchUsers = async (req, res) => {};
+const searchUsers = async (req, res) => {
+  const { username } = req.params;
+  try {
+    const user = await User.findOne({ username: username });
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
 
 const deleteUser = async (req, res) => {
   const { id } = req.params;
