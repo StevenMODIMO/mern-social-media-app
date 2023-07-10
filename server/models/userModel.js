@@ -7,9 +7,11 @@ const userSchema = mongoose.Schema({
   password: String,
   username: String,
   profile_url: String,
-  followers: [{
-    username: String
-  }],
+  followers: [
+    {
+      username: String,
+    },
+  ],
   posts: [
     {
       post: String,
@@ -23,14 +25,14 @@ const userSchema = mongoose.Schema({
       ],
       likes: { type: Number, default: 0 },
       saved: { type: Number, default: 0 },
-      post_id: String
+      post_id: String,
     },
   ],
   saved_post: [
     {
       post_id: String,
-    }
-  ]
+    },
+  ],
 });
 
 userSchema.statics.signup = async function signup(

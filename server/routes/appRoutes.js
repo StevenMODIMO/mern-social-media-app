@@ -45,7 +45,7 @@ router.post("/follow/:username", followUser);
 
 router.post("/unfollow/:username", unfollowUser);
 
-router.post("/search/:username", searchUsers)
+router.post("/search/:username", searchUsers);
 
 router.delete("/delete-user/:id", deleteUser);
 

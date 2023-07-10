@@ -4,7 +4,7 @@ const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
 const userRoutes = require("./routes/userRoutes");
-const appRoutes = require("./routes/appRoutes")
+const appRoutes = require("./routes/appRoutes");
 
 app.use(cors());
 app.use(express.json());
@@ -14,7 +14,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/auth", userRoutes);
-app.use("/app", appRoutes)
+app.use("/app", appRoutes);
 
 app.get("/", (req, res) => {
   res
