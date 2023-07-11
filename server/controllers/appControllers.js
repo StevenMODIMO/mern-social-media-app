@@ -231,7 +231,7 @@ const deleteComment = async (req, res) => {
       },
       { new: true }
     );
-    
+
     res.status(200).json(deleteComment);
   } catch (error) {
     res.status(400).json(error);
@@ -247,7 +247,7 @@ const likeComment = async (req, res) => {
       { $inc: { "comments.$.likes": 1 } },
       { new: true }
     );
-    res.status(200).json(like)
+    res.status(200).json(like);
   } catch (error) {
     res.status(400).json(error);
   }
@@ -262,7 +262,7 @@ const unlikeComment = async (req, res) => {
       { $inc: { "comments.$.likes": -1 } },
       { new: true }
     );
-    res.status(200).json(unlike)
+    res.status(200).json(unlike);
   } catch (error) {
     res.status(400).json(error);
   }
