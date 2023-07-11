@@ -217,9 +217,21 @@ const commentPost = async (req, res) => {
 };
 
 const deleteComment = async (req, res) => {
-  const { id } = req.params;
+  const { post_id } = req.params;
+  const { comment_id } = req.params;
   try {
-    const deleteComment = await App.findOneAndDelete({});
+    const deleteComment = await App.findOneAndUpdate(
+      { _id: post_id },
+      {
+        $pull: {
+          comments: {
+            _id: comment_id,
+          },
+        },
+      },
+      { new: true }
+    );
+    
     res.status(200).json(deleteComment);
   } catch (error) {
     res.status(400).json(error);
@@ -227,15 +239,34 @@ const deleteComment = async (req, res) => {
 };
 
 const likeComment = async (req, res) => {
-  const { id } = req.params;
+  const { post_id } = req.params;
+  const { comment_id } = req.params;
   try {
-    const like = await App.findOneAndUpdate({ _id: id });
+    const like = await App.findOneAndUpdate(
+      { _id: post_id, "comments._id": comment_id },
+      { $inc: { "comments.$.likes": 1 } },
+      { new: true }
+    );
+    res.status(200).json(like)
   } catch (error) {
     res.status(400).json(error);
   }
 };
 
-const unlikeComment = async (req, res) => {};
+const unlikeComment = async (req, res) => {
+  const { post_id } = req.params;
+  const { comment_id } = req.params;
+  try {
+    const unlike = await App.findOneAndUpdate(
+      { _id: post_id, "comments._id": comment_id },
+      { $inc: { "comments.$.likes": -1 } },
+      { new: true }
+    );
+    res.status(200).json(unlike)
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
 
 const followUser = async (req, res) => {
   const user = req.user.username;
@@ -315,7 +346,9 @@ module.exports = {
   savePost,
   unsavePost,
   commentPost,
+  deleteComment,
   likeComment,
+  unlikeComment,
   followUser,
   unfollowUser,
   searchUsers,

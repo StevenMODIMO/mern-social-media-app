@@ -10,7 +10,9 @@ const {
   savePost,
   unsavePost,
   commentPost,
+  deleteComment,
   likeComment,
+  unlikeComment,
   followUser,
   unfollowUser,
   searchUsers,
@@ -40,6 +42,12 @@ router.post("/save-post/:id", savePost);
 router.delete("/unsave-post/:id", unsavePost);
 
 router.post("/comment/:id", commentPost);
+
+router.post("/delete-comment/:post_id/:comment_id", deleteComment);
+
+router.post("/like-comment/:post_id/:comment_id", likeComment);
+
+router.post("/unlike-comment/:post_id/:comment_id", unlikeComment);
 
 router.post("/follow/:username", followUser);
 
