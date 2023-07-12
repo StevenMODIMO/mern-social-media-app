@@ -3,7 +3,7 @@ const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
 
 const createToken = (username) => {
-  return jwt.sign({ username }, process.env.JWT_SECRET);
+  return jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: 50});
 };
 
 const signupUser = async (req, res) => {
