@@ -1,6 +1,7 @@
 const App = require("../models/appModel");
 const User = require("../models/userModel");
 
+
 const getAllPosts = async (req, res) => {
   try {
     const getPosts = await App.find({}).sort({ createdAt: -1 });

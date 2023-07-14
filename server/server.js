@@ -5,6 +5,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const userRoutes = require("./routes/userRoutes");
 const appRoutes = require("./routes/appRoutes");
+const path = require("path");
 
 app.use(cors());
 app.use(express.json());
@@ -20,6 +21,11 @@ app.get("/", (req, res) => {
   res
     .status(200)
     .json({ message_from_server: "Hello Mern Social Media App Server" });
+});
+
+app.get("/images/:filepath", (req, res) => {
+  const imagePath = path.join(__dirname, "images", req.params.filepath  );
+  res.sendFile(imagePath);
 });
 
 mongoose.connect(process.env.MONGO_URI).then(() => {

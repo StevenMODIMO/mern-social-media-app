@@ -6,7 +6,7 @@ const userSchema = mongoose.Schema({
   email: String,
   password: String,
   username: String,
-  profile_url: String,
+  image_path: String,
   followers: [
     {
       username: String,
@@ -39,7 +39,7 @@ userSchema.statics.signup = async function signup(
   email,
   password,
   username,
-  profile_url
+  image_path
 ) {
   if (!email || !password || !username) {
     throw Error("All fields must be filled.");
@@ -72,7 +72,7 @@ userSchema.statics.signup = async function signup(
     email,
     password: hash,
     username,
-    profile_url,
+    image_path,
   });
 
   return final;

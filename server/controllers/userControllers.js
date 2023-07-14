@@ -1,15 +1,17 @@
 require("dotenv").config();
 const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
+const path = require("path")
 
 const createToken = (username) => {
   return jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: 50});
 };
 
 const signupUser = async (req, res) => {
-  const { email, password, username, profile_url } = req.body;
+  const { email, password, username,  } = req.body;
+  const image_path = path.normalize(req.file.path).replace(/\\/g, "/");
   try {
-    const user = await User.signup(email, password, username, profile_url);
+    const user = await User.signup(email, password, username, image_path);
     const token = createToken(user.username);
     const person = user.username;
     res.status(200).json({ person, token });

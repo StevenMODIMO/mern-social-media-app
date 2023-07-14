@@ -2,6 +2,9 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { FaBars } from "react-icons/fa";
+import { BsPeople } from "react-icons/bs";
+import { BiLogInCircle, BiLogOutCircle } from "react-icons/bi"
+import { TfiWrite } from "react-icons/tfi"
 
 export default function Navbar() {
   const [showLinks, setShowLinks] = useState(false);
@@ -13,28 +16,35 @@ export default function Navbar() {
   const toggleLinks = () => setShowLinks(!showLinks);
   const hideLinks = () => setShowLinks(false);
   return (
-    <div className="flex justify-between m-3
-    m-3 text-2xl">
-      <div>
-        <Link to="/">Home</Link>
-      </div>
-      <section className="flex">
+    <div className="text-lg">
+      <div className="flex justify-between">
+        <Link to="/" className="flex">
+          <BsPeople className="mt-1" />
+          <div>mernSocial</div>
+        </Link>
         {!user ? (
-          <section className="flex">
-            <div className="m-3">
-              <Link to="/signup">Signup</Link>
-            </div>
-            <div className="m-3">
-              <Link to="/login">Login</Link>
-            </div>
-          </section>
+            <section className="flex gap-3">
+              <div className="flex">
+                <TfiWrite className="mt-1" />
+                <Link to="/signup">Signup</Link>
+              </div>
+              <div className="flex">
+                <BiLogInCircle className="mt-1" />
+                <Link to="/login">Login</Link>
+              </div>
+            </section>
         ) : (
-          <section className="flex">
-            <div className="m-3">{user.person}</div>
+          <section className="flex gap-2">
+            <div>
+            <div>{user.person}</div>
+            </div>
+            <div className="flex">
+            <BiLogOutCircle className="mt-1" />
             <button onClick={logout}>Logout</button>
+            </div>
           </section>
         )}
-      </section>
+      </div>
     </div>
   );
 }

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 export default function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [image, setImage] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const { dispatch } = useAuth();
@@ -13,12 +14,14 @@ export default function Signup() {
   const handleSubmission = async (e) => {
     e.preventDefault();
 
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("username", name);
+    formData.append("email", email);
+    formData.append("password", password);
     const response = await fetch("http://localhost:5000/auth/signup", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ username: name, email, password }),
+      body: formData,
     });
 
     const json = await response.json();
@@ -27,6 +30,7 @@ export default function Signup() {
       setName("");
       setEmail("");
       setPassword("");
+      setImage("")
       navigate("/");
       localStorage.setItem("user", JSON.stringify(json));
       dispatch({ type: "LOGIN", payload: json });
@@ -36,6 +40,7 @@ export default function Signup() {
       setName("");
       setEmail("");
       setPassword("");
+      setImage("")
       setError(json.error);
     }
   };
@@ -48,6 +53,11 @@ export default function Signup() {
           onSubmit={handleSubmission}
           onFocus={() => setError(null)}
         >
+          <input
+            type="file"
+            name="image"
+            onChange={(e) => setImage(e.target.files[0])}
+          />
           <input
             type="text"
             placeholder="Username"
