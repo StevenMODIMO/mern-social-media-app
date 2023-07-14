@@ -36,31 +36,34 @@ export default function Login() {
       setError(json.error);
     }
   };
+
   return (
-    <div>
-      <main>
-        <section></section>
-        <form
-          className="flex flex-col"
-          onSubmit={handleSubmission}
-          onFocus={() => setError(null)}
-        >
-          <input
-            type="text"
-            placeholder="Username"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button>Submit</button>
-          {error && <div className="bg-red-500 p-2 rounded">{error}</div>}
-        </form>
-      </main>
+    <div className="flex justify-center items-center h-screen bg-gray-100">
+      <form
+        className="bg-white rounded shadow p-6 flex flex-col"
+        onSubmit={handleSubmission}
+        onFocus={() => setError(null)}
+      >
+        <h2 className="text-2xl font-semibold mb-4">Login</h2>
+        <input
+          type="text"
+          placeholder="Username"
+          value={name}
+          className="mb-4 p-2 border border-gray-300 rounded"
+          onChange={(e) => setName(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          className="mb-4 p-2 border border-gray-300 rounded"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button className="bg-blue-500 text-white py-2 px-4 rounded">
+          Submit
+        </button>
+        {error && <div className="bg-red-500 p-2 mt-4 text-white rounded">{error}</div>}
+      </form>
     </div>
   );
 }

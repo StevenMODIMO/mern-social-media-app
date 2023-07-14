@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const path = require("path")
 
 const createToken = (username) => {
-  return jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: 50});
+  return jwt.sign({ username }, process.env.JWT_SECRET);
 };
 
 const signupUser = async (req, res) => {
@@ -14,7 +14,8 @@ const signupUser = async (req, res) => {
     const user = await User.signup(email, password, username, image_path);
     const token = createToken(user.username);
     const person = user.username;
-    res.status(200).json({ person, token });
+    const id = user._id
+    res.status(200).json({ id, person, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -26,7 +27,8 @@ const loginUser = async (req, res) => {
     const user = await User.login(username, password);
     const token = createToken(user.username);
     const person = user.username;
-    res.status(200).json({ person, token });
+    const id = user._id
+    res.status(200).json({ id, person, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
