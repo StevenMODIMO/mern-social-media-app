@@ -1,6 +1,6 @@
 export default function Profile({ id, profile, email, username }) {
   return (
-    <div className="absolute top-14 transition-all duration-150 ease-in-out right-4 bg-white text-gray-800 p-4 rounded shadow-lg z-20">
+    <div className="absolute top-14 transition-all duration-150 ease-in-out right-4 bg-white text-gray-800 p-4 rounded shadow-lg">
       <img
         src={`http://localhost:5000/${profile}`}
         alt="Profile Image"

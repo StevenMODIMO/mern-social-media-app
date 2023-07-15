@@ -16,77 +16,77 @@ export default function Home() {
     setActive(icon);
   };
   return (
-    <div className="h-screen bg-gray-100 pt-16">
-      <header className="flex justify-around shadow-lg gap-1 pt-2 text-2xl bg-gray-500 fixed w-full text-white">
+    <div className="h-screen bg-gray-100 pt-16 lg:grid grid-cols-2">
+      <header className="flex justify-around shadow-lg gap-1 pt-2 text-2xl bg-gray-500 fixed w-full text-white lg:justify-start lg:w-fit lg:flex-col lg:h-screen">
         <div
           onClick={() => handleIconClick("search")}
           className={
             active == "search"
-              ? "border-b-4 border-blue-500 w-12 flex justify-center pb-1"
-              : "w-12 flex justify-center pb-1"
+              ? "border-b-4 border-blue-500 w-12 flex justify-center pb-1 lg:w-64 lg:gap-2 lg:justify-start lg:border-hidden lg:bg-gray-800 transition-all duration-500 ease-in-out lg:m-2 lg:p-2 lg:rounded-3xl"
+              : "w-12 flex justify-center pb-1 lg:w-64 lg:gap-2 lg:justify-start lg:cursor-pointer lg:hover:bg-gray-800 transition-all duration-500 ease-in-out lg:m-2 lg:p-2 lg:rounded-3xl"
           }
         >
-          <BsSearch />
-          <h1 className="hidden">Search</h1>
+          <BsSearch className="lg:mt-1 lg:ml-2" />
+          <h1 className="hidden lg:block">Search</h1>
         </div>
         <div
           onClick={() => handleIconClick("home")}
           className={
             active == "home"
-              ? "border-b-4 border-blue-500 w-12 flex justify-center pb-1"
-              : "w-12 flex justify-center pb-1"
+              ? "border-b-4 border-blue-500 w-12 flex justify-center pb-1 lg:w-64 lg:gap-2 lg:justify-start lg:border-hidden lg:bg-gray-800 transition-all duration-500 ease-in-out lg:m-2 lg:p-2 lg:rounded-3xl"
+              : "w-12 flex justify-center pb-1 lg:w-64 lg:gap-2 lg:justify-start lg:cursor-pointer lg:hover:bg-gray-800 transition-all duration-500 ease-in-out lg:m-2 lg:p-2 lg:rounded-3xl"
           }
         >
-          <h1 className="hidden">Home</h1>
-          <AiOutlineHome />
+          <AiOutlineHome className="lg:mt-1 lg:ml-2" />
+          <h1 className="hidden lg:block">Home</h1>
         </div>
         <div
           onClick={() => handleIconClick("friends")}
           className={
             active == "friends"
-              ? "border-b-4 border-blue-500 w-12 flex justify-center pb-1"
-              : "w-12 flex justify-center pb-1"
+              ? "border-b-4 border-blue-500 w-12 flex justify-center pb-1 lg:w-64 lg:gap-2 lg:justify-start lg:border-hidden lg:bg-gray-800 transition-all duration-500 ease-in-out lg:m-2 lg:p-2 lg:rounded-3xl"
+              : "w-12 flex justify-center pb-1 lg:w-64 lg:gap-2 lg:justify-start lg:cursor-pointer lg:hover:bg-gray-800 transition-all duration-500 ease-in-out lg:m-2 lg:p-2 lg:rounded-3xl"
           }
         >
-          <FaUserFriends />
-          <h1 className="hidden">Friends</h1>
+          <FaUserFriends className="lg:mt-1 lg:ml-2" />
+          <h1 className="hidden lg:block">Friends</h1>
         </div>
         <div
           onClick={() => handleIconClick("notifications")}
           className={
             active == "notifications"
-              ? "border-b-4 border-blue-500 w-12 flex justify-center pb-1"
-              : "w-12 flex justify-center pb-1"
+              ? "border-b-4 border-blue-500 w-12 flex justify-center pb-1 lg:w-64 lg:gap-2 lg:justify-start lg:border-hidden lg:bg-gray-800 transition-all duration-500 ease-in-out lg:m-2 lg:p-2 lg:rounded-3xl"
+              : "w-12 flex justify-center pb-1 lg:w-64 lg:gap-2 lg:justify-start lg:cursor-pointer lg:hover:bg-gray-800 transition-all duration-500 ease-in-out lg:m-2 lg:p-2 lg:rounded-3xl"
           }
         >
-          <IoMdNotificationsOutline />
-          <h1 className="hidden">Notifications</h1>
+          <IoMdNotificationsOutline className="lg:mt-1 lg:ml-2" />
+          <h1 className="hidden lg:block">Notifications</h1>
         </div>
         <div
           onClick={() => handleIconClick("saved")}
           className={
             active == "saved"
-              ? "border-b-4 border-blue-500 w-12 flex justify-center pb-1"
-              : "w-12 flex justify-center pb-1"
+              ? "border-b-4 border-blue-500 w-12 flex justify-center pb-1 lg:w-64 lg:gap-2 lg:justify-start lg:border-hidden lg:bg-gray-800 transition-all duration-500 ease-in-out lg:m-2 lg:p-2 lg:rounded-3xl"
+              : "w-12 flex justify-center pb-1 lg:w-64 lg:gap-2 lg:justify-start lg:cursor-pointer lg:hover:bg-gray-800 transition-all duration-500 ease-in-out lg:m-2 lg:p-2 lg:rounded-3xl"
           }
         >
-          <BsBookmark />
-          <h1 className="hidden">Saved</h1>
+          <BsBookmark className="lg:mt-1 lg:ml-2" />
+          <h1 className="hidden lg:block">Saved</h1>
         </div>
         <div
           onClick={() => handleIconClick("tags")}
           className={
             active == "tags"
-              ? "border-b-4 border-blue-500 w-12 flex justify-center pb-1"
-              : "w-12 flex justify-center pb-1"
+              ? "border-b-4 border-blue-500 w-12 flex justify-center pb-1 lg:w-64 lg:gap-2 lg:justify-start lg:border-hidden lg:bg-gray-800 transition-all duration-500 ease-in-out lg:m-2 lg:p-2 lg:rounded-3xl"
+              : "w-12 flex justify-center pb-1 lg:w-64 lg:gap-2 lg:justify-start lg:cursor-pointer lg:hover:bg-gray-800 transition-all duration-500 ease-in-out lg:m-2 lg:p-2 lg:rounded-3xl"
           }
         >
-          <AiOutlineTags />
-          <h1 className="hidden">Tags</h1>
+          <AiOutlineTags className="lg:mt-1 lg:ml-2" />
+          <h1 className="hidden lg:block">Tags</h1>
         </div>
       </header>
 
-      <main>
+      <main className="lg:ml-72">
         {active === "home" && <Posts />}
         {active === "search" && <Search />}
         {active === "friends" && <Friends />}
@@ -94,6 +94,75 @@ export default function Home() {
         {active === "saved" && <Saved />}
         {active === "tags" && <Tags />}
       </main>
+
+      <section className="hidden lg:block lg:fixed lg:right-0 lg:w-80 lg:bg-white lg:h-screen">
+      <div
+          onClick={() => handleIconClick("search")}
+          className={
+            active == "search"
+              ? "border-b-4 border-blue-500 w-12 flex justify-center pb-1 lg:w-64 lg:gap-2 lg:justify-start lg:border-hidden lg:bg-gray-800 transition-all duration-500 ease-in-out lg:m-2 lg:p-2 lg:rounded-3xl"
+              : "w-12 flex justify-center pb-1 lg:w-64 lg:gap-2 lg:justify-start lg:cursor-pointer lg:hover:bg-gray-800 transition-all duration-500 ease-in-out lg:m-2 lg:p-2 lg:rounded-3xl"
+          }
+        >
+          <BsSearch className="lg:mt-1 lg:ml-2" />
+          <h1 className="hidden lg:block">Search</h1>
+        </div>
+        <div
+          onClick={() => handleIconClick("home")}
+          className={
+            active == "home"
+              ? "border-b-4 border-blue-500 w-12 flex justify-center pb-1 lg:w-64 lg:gap-2 lg:justify-start lg:border-hidden lg:bg-gray-800 transition-all duration-500 ease-in-out lg:m-2 lg:p-2 lg:rounded-3xl"
+              : "w-12 flex justify-center pb-1 lg:w-64 lg:gap-2 lg:justify-start lg:cursor-pointer lg:hover:bg-gray-800 transition-all duration-500 ease-in-out lg:m-2 lg:p-2 lg:rounded-3xl"
+          }
+        >
+          <AiOutlineHome className="lg:mt-1 lg:ml-2" />
+          <h1 className="hidden lg:block">Home</h1>
+        </div>
+        <div
+          onClick={() => handleIconClick("friends")}
+          className={
+            active == "friends"
+              ? "border-b-4 border-blue-500 w-12 flex justify-center pb-1 lg:w-64 lg:gap-2 lg:justify-start lg:border-hidden lg:bg-gray-800 transition-all duration-500 ease-in-out lg:m-2 lg:p-2 lg:rounded-3xl"
+              : "w-12 flex justify-center pb-1 lg:w-64 lg:gap-2 lg:justify-start lg:cursor-pointer lg:hover:bg-gray-800 transition-all duration-500 ease-in-out lg:m-2 lg:p-2 lg:rounded-3xl"
+          }
+        >
+          <FaUserFriends className="lg:mt-1 lg:ml-2" />
+          <h1 className="hidden lg:block">Friends</h1>
+        </div>
+        <div
+          onClick={() => handleIconClick("notifications")}
+          className={
+            active == "notifications"
+              ? "border-b-4 border-blue-500 w-12 flex justify-center pb-1 lg:w-64 lg:gap-2 lg:justify-start lg:border-hidden lg:bg-gray-800 transition-all duration-500 ease-in-out lg:m-2 lg:p-2 lg:rounded-3xl"
+              : "w-12 flex justify-center pb-1 lg:w-64 lg:gap-2 lg:justify-start lg:cursor-pointer lg:hover:bg-gray-800 transition-all duration-500 ease-in-out lg:m-2 lg:p-2 lg:rounded-3xl"
+          }
+        >
+          <IoMdNotificationsOutline className="lg:mt-1 lg:ml-2" />
+          <h1 className="hidden lg:block">Notifications</h1>
+        </div>
+        <div
+          onClick={() => handleIconClick("saved")}
+          className={
+            active == "saved"
+              ? "border-b-4 border-blue-500 w-12 flex justify-center pb-1 lg:w-64 lg:gap-2 lg:justify-start lg:border-hidden lg:bg-gray-800 transition-all duration-500 ease-in-out lg:m-2 lg:p-2 lg:rounded-3xl"
+              : "w-12 flex justify-center pb-1 lg:w-64 lg:gap-2 lg:justify-start lg:cursor-pointer lg:hover:bg-gray-800 transition-all duration-500 ease-in-out lg:m-2 lg:p-2 lg:rounded-3xl"
+          }
+        >
+          <BsBookmark className="lg:mt-1 lg:ml-2" />
+          <h1 className="hidden lg:block">Saved</h1>
+        </div>
+        <div
+          onClick={() => handleIconClick("tags")}
+          className={
+            active == "tags"
+              ? "border-b-4 border-blue-500 w-12 flex justify-center pb-1 lg:w-64 lg:gap-2 lg:justify-start lg:border-hidden lg:bg-gray-800 transition-all duration-500 ease-in-out lg:m-2 lg:p-2 lg:rounded-3xl"
+              : "w-12 flex justify-center pb-1 lg:w-64 lg:gap-2 lg:justify-start lg:cursor-pointer lg:hover:bg-gray-800 transition-all duration-500 ease-in-out lg:m-2 lg:p-2 lg:rounded-3xl"
+          }
+        >
+          <AiOutlineTags className="lg:mt-1 lg:ml-2" />
+          <h1 className="hidden lg:block">Tags</h1>
+        </div>
+      </section>
     </div>
   );
 }
