@@ -3,14 +3,20 @@ import { AiOutlineHome, AiOutlineTags } from "react-icons/ai";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { FaUserFriends } from "react-icons/fa";
 import { BsBookmark, BsSearch } from "react-icons/bs";
+import Posts from "../components/Posts";
+import Friends from "../components/Friends";
+import Notifications from "../components/Notifications";
+import Tags from "../components/Tags";
+import Search from "../components/Search";
+import Saved from "../components/Saved";
 
 export default function Home() {
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState("home");
   const handleIconClick = (icon) => {
     setActive(icon);
   };
   return (
-    <div className="h-fit bg-gray-100 pt-16">
+    <div className="h-screen bg-gray-100 pt-16">
       <header className="flex justify-around shadow-lg gap-1 pt-2 text-2xl bg-gray-500 fixed w-full text-white">
         <div
           onClick={() => handleIconClick("search")}
@@ -80,55 +86,13 @@ export default function Home() {
         </div>
       </header>
 
-      <main className="pt-10 mt-5">
-        <div>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident,
-        </div>
-        <div>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident,
-        </div>
-        <div>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident,
-        </div>
-        <div>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident,
-        </div>
-        <div>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident,
-        </div>
-        <div>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident,
-        </div>
+      <main>
+        {active === "home" && <Posts />}
+        {active === "search" && <Search />}
+        {active === "friends" && <Friends />}
+        {active === "notifications" && <Notifications />}
+        {active === "saved" && <Saved />}
+        {active === "tags" && <Tags />}
       </main>
     </div>
   );
