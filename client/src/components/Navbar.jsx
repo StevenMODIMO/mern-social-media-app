@@ -46,7 +46,7 @@ export default function Navbar() {
   };
 
   return (
-    <div className="bg-gray-800 text-white">
+    <div className="fixed top-0 left-0 right-0 bg-gray-800 text-white">
     {showProfile && (
       <Profile
         id={profile._id}

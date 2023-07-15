@@ -9,6 +9,9 @@ const createToken = (username) => {
 
 const signupUser = async (req, res) => {
   const { email, password, username,  } = req.body;
+  if(!req.file) {
+    return res.status(400).json({error: "Image is required"})
+  }
   const image_path = path.normalize(req.file.path).replace(/\\/g, "/");
   try {
     const user = await User.signup(email, password, username, image_path);
