@@ -4,8 +4,11 @@ import {
   AiOutlineFileImage,
   AiOutlineVideoCameraAdd,
   AiOutlineGif,
+  AiOutlineLike,
+  AiFillLike,
 } from "react-icons/ai";
-import { BsEmojiSmile } from "react-icons/bs";
+import { GoComment } from "react-icons/go"
+import { BsEmojiSmile, BsThreeDots, BsBookmark } from "react-icons/bs";
 import { GoLocation } from "react-icons/go";
 
 export default function Posts() {
@@ -115,26 +118,49 @@ export default function Posts() {
         </main>
       </header>
 
-      <main>
+      <main className="mt-5">
         {posts.map((post) => {
           return (
-            <div key={post._id}>
-              <header>
-                {post.post_image_url && (
-                  <img
-                    src={`http://localhost:5000/${post.post_image_url}`}
-                    alt="Profile Image"
-                    className="h-72 w-72 mx-auto rounded"
-                  />
-                )}
-                <h1>{post.posted_by}</h1>
-                <img
-                  src={`http://localhost:5000/username/${post.posted_by}`}
-                  className="w-8 h-8 rounded-full mr-2"
-                  alt="profile"
-                />
-                <h1>{post.post}</h1>
-              </header>
+            <div key={post._id} className="bg-white rounded m-4">
+              <section>
+                <header className="flex justify-between p-2 border-b border-gray-300">
+                  <div className="flex">
+                    <img
+                      src={`http://localhost:5000/username/${post.posted_by}`}
+                      className="w-8 h-8 rounded-full"
+                      alt="profile"
+                    />
+                    <h1 className="text-lg font-bold">{post.posted_by}</h1>
+                  </div>
+                  <BsThreeDots className="text-lg mt-1" />
+                </header>
+
+                <div className="m-1 rounded">
+                  <h1 className="p-4">{post.post}</h1>
+                  {post.post_image_url && (
+                    <img
+                      src={`http://localhost:5000/${post.post_image_url}`}
+                      alt="Profile Image"
+                      className="h-56 w-full rounded"
+                    />
+                  )}
+                </div>
+                <footer className="flex justify-around mt-4 p-1">
+                  <div className="flex text-md gap-1">
+                  <AiOutlineLike className="mt-1" />
+                  <div>Like</div>
+                  </div>
+                  <div className="flex text-md gap-1">
+                    <GoComment className="mt-1" />
+                    <div>Comment</div>
+                  </div>
+                  <div className="flex text-md gap-1">
+                    <BsBookmark className="mt-1" />
+                    <div>Save</div>
+                  </div>
+                  <div className="flex text-md gap-1"></div>
+                </footer>
+              </section>
             </div>
           );
         })}

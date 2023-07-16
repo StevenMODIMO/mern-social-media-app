@@ -16,7 +16,7 @@ export default function Home() {
     setActive(icon);
   };
   return (
-    <div className="h-screen bg-gray-100 pt-16 lg:grid grid-cols-2">
+    <div className="h-fit bg-gray-100 pt-16 lg:grid grid-cols-2">
       <header className="flex justify-around shadow-lg gap-1 pt-2 text-2xl bg-gray-500 fixed w-full text-white lg:justify-start lg:w-fit lg:flex-col lg:h-screen">
         <div
           onClick={() => handleIconClick("search")}
