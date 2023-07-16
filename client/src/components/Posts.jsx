@@ -23,7 +23,6 @@ export default function Posts() {
     setDisabled(post.trim().length === 0);
   }, [post]);
 
-
   const handlePost = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -121,12 +120,19 @@ export default function Posts() {
           return (
             <div key={post._id}>
               <header>
-              {post.post_image_url && <img
-                src={`http://localhost:5000/${post.post_image_url}`}
-                alt="Profile Image"
-                className="w-8 h-8 rounded-full mr-2"
-              />}
+                {post.post_image_url && (
+                  <img
+                    src={`http://localhost:5000/${post.post_image_url}`}
+                    alt="Profile Image"
+                    className="h-72 w-72 mx-auto rounded"
+                  />
+                )}
                 <h1>{post.posted_by}</h1>
+                <img
+                  src={`http://localhost:5000/username/${post.posted_by}`}
+                  className="w-8 h-8 rounded-full mr-2"
+                  alt="profile"
+                />
                 <h1>{post.post}</h1>
               </header>
             </div>

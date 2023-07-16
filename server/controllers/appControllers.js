@@ -33,7 +33,12 @@ const getSingleUser = async (req, res) => {
 const createPost = async (req, res) => {
   const username = req.user.username;
   const { post } = req.body;
-  const image_path = path.normalize(req.file.path).replace(/\\/g, "/");
+  let image_path;
+
+  if (req.file) {
+    image_path = path.normalize(req.file.path).replace(/\\/g, "/");
+  }
+
   try {
     const newPost = await App.create({
       posted_by: username,
