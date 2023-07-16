@@ -233,6 +233,16 @@ const commentPost = async (req, res) => {
   }
 };
 
+const getComments = async (req, res) => {
+  const { id } = req.params
+  try {
+    const comments = await App.findOne({ _id: id })
+    res.status(200).json(comments.comments)
+  } catch(error) {
+    res.status(400).json(error)
+  }
+}
+
 const deleteComment = async (req, res) => {
   const { post_id } = req.params;
   const { comment_id } = req.params;
@@ -363,6 +373,7 @@ module.exports = {
   savePost,
   unsavePost,
   commentPost,
+  getComments,
   deleteComment,
   likeComment,
   unlikeComment,

@@ -231,8 +231,8 @@ export default function Posts() {
                   </div>
                   {post.comments.length > 0 && (
                     <div className="flex text-md gap-1">
-                      <h1>Comments:</h1>
                       <p>{post.comments.length}</p>
+                      <h1>Comments</h1>
                     </div>
                   )}
                   {post.saved > 0 && (

@@ -10,6 +10,7 @@ const {
   savePost,
   unsavePost,
   commentPost,
+  getComments,
   deleteComment,
   likeComment,
   unlikeComment,
@@ -18,21 +19,21 @@ const {
   searchUsers,
   deleteUser,
 } = require("../controllers/appControllers");
-const { v4: uuidV4 } = require("uuid")
-const uuid = uuidV4()
-const multer = require("multer")
-const path = require("path")
+const { v4: uuidV4 } = require("uuid");
+const uuid = uuidV4();
+const multer = require("multer");
+const path = require("path");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "posts")
+    cb(null, "posts");
   },
-  filename: function(req, file, cb) {
-    const ext = path.extname(file.originalname)
-    cb(null, uuid + ext)
-  }
-})
+  filename: function (req, file, cb) {
+    const ext = path.extname(file.originalname);
+    cb(null, uuid + ext);
+  },
+});
 
-const upload = multer({ storage: storage})
+const upload = multer({ storage: storage });
 
 const requireAuth = require("../middleware/requireAuth");
 
@@ -44,7 +45,7 @@ router.get("/users", getallUsers);
 
 router.get("/user/:id", getSingleUser);
 
-router.post("/post",upload.single("post_image"), createPost);
+router.post("/post", upload.single("post_image"), createPost);
 
 router.post("/like/:id", likePost);
 
@@ -57,6 +58,8 @@ router.post("/save-post/:id", savePost);
 router.post("/unsave-post/:id", unsavePost);
 
 router.post("/comment/:id", commentPost);
+
+router.get("/comments/:id", getComments);
 
 router.post("/delete-comment/:post_id/:comment_id", deleteComment);
 
