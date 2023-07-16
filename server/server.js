@@ -28,6 +28,11 @@ app.get("/images/:filepath", (req, res) => {
   res.sendFile(imagePath);
 });
 
+app.get("/posts/:filepath", (req, res) => {
+  const imagePath = path.join(__dirname, "posts", req.params.filepath  );
+  res.sendFile(imagePath);
+});
+
 mongoose.connect(process.env.MONGO_URI).then(() => {
   app.listen(process.env.PORT, () => {
     console.log(`http://localhost:${process.env.PORT}`);

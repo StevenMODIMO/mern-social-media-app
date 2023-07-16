@@ -18,6 +18,21 @@ const {
   searchUsers,
   deleteUser,
 } = require("../controllers/appControllers");
+const { v4: uuidV4 } = require("uuid")
+const uuid = uuidV4()
+const multer = require("multer")
+const path = require("path")
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "posts")
+  },
+  filename: function(req, file, cb) {
+    const ext = path.extname(file.originalname)
+    cb(null, uuid + ext)
+  }
+})
+
+const upload = multer({ storage: storage})
 
 const requireAuth = require("../middleware/requireAuth");
 
@@ -29,7 +44,7 @@ router.get("/users", getallUsers);
 
 router.get("/user/:id", getSingleUser);
 
-router.post("/post", createPost);
+router.post("/post",upload.single("post_image"), createPost);
 
 router.post("/like/:id", likePost);
 

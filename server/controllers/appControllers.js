@@ -1,6 +1,6 @@
 const App = require("../models/appModel");
 const User = require("../models/userModel");
-
+const path = require("path");
 
 const getAllPosts = async (req, res) => {
   try {
@@ -33,8 +33,13 @@ const getSingleUser = async (req, res) => {
 const createPost = async (req, res) => {
   const username = req.user.username;
   const { post } = req.body;
+  const image_path = path.normalize(req.file.path).replace(/\\/g, "/");
   try {
-    const newPost = await App.create({ posted_by: username, post: post });
+    const newPost = await App.create({
+      posted_by: username,
+      post: post,
+      post_image_url: image_path,
+    });
     await User.findOneAndUpdate(
       { username },
       {

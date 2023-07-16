@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useAuth } from "../context/AuthContext";
 import {
   AiOutlineFileImage,
@@ -14,6 +14,7 @@ export default function Posts() {
   const [disabled, setDisabled] = useState(true);
   const [options, setOptions] = useState(false);
   const { user } = useAuth();
+  const fileInputRef = useRef(null);
   const toggleOptions = (event) => {
     setOptions(event.type === "focus");
   };
@@ -21,15 +22,20 @@ export default function Posts() {
   useEffect(() => {
     setDisabled(post.trim().length === 0);
   }, [post]);
+
+
   const handlePost = async (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append("post", post);
+    formData.append("post_image", fileInputRef.current.files[0]);
+
     const response = await fetch("http://localhost:5000/app/post", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${user.token}`,
       },
-      body: JSON.stringify({ post }),
+      body: formData,
     });
 
     const json = await response.json();
@@ -88,8 +94,8 @@ export default function Posts() {
         </form>
         <main className="flex text-3xl justify-around bg-white p-2 rounded-2xl m-2">
           <div>
-            <input type="file" className="hidden" />
-            <AiOutlineFileImage />
+            <input ref={fileInputRef} type="file" className="hidden" />
+            <AiOutlineFileImage onClick={() => fileInputRef.current.click()} />
           </div>
           <div>
             <input type="file" className="hidden" />
@@ -115,6 +121,11 @@ export default function Posts() {
           return (
             <div key={post._id}>
               <header>
+              {post.post_image_url && <img
+                src={`http://localhost:5000/${post.post_image_url}`}
+                alt="Profile Image"
+                className="w-8 h-8 rounded-full mr-2"
+              />}
                 <h1>{post.posted_by}</h1>
                 <h1>{post.post}</h1>
               </header>
