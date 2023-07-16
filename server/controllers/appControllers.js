@@ -53,7 +53,8 @@ const createPost = async (req, res) => {
         },
       }
     );
-    res.status(200).json(newPost);
+    const getPosts = await App.find({}).sort({ createdAt: -1 });
+    res.status(200).json(getPosts);
   } catch (error) {
     res.status(400).json(error);
   }
@@ -73,7 +74,8 @@ const likePost = async (req, res) => {
       { $inc: { "posts.$.likes": 1 } },
       { new: true }
     );
-    res.status(200).json(post);
+    const getPosts = await App.find({}).sort({ createdAt: -1 });
+    res.status(200).json(getPosts);
   } catch (error) {
     res.status(400).json(error);
   }
@@ -93,7 +95,8 @@ const unlikePost = async (req, res) => {
       { $inc: { "posts.$.likes": -1 } },
       { new: true }
     );
-    res.status(200).json(post);
+    const getPosts = await App.find({}).sort({ createdAt: -1 });
+    res.status(200).json(getPosts);
   } catch (error) {
     res.statua(400).json(error);
   }
@@ -150,7 +153,8 @@ const savePost = async (req, res) => {
       { $inc: { "posts.$.saved": 1 } }
     );
 
-    res.status(200).json(appStats);
+    const getPosts = await App.find({}).sort({ createdAt: -1 });
+    res.status(200).json(getPosts);
   } catch (error) {
     res.status(400).json(error);
   }
@@ -185,7 +189,8 @@ const unsavePost = async (req, res) => {
       { $inc: { "posts.$.saved": -1 } }
     );
 
-    res.status(400).json(unsave);
+    const getPosts = await App.find({}).sort({ createdAt: -1 });
+    res.status(200).json(getPosts);
   } catch (error) {
     res.status(400).json(error);
   }
@@ -221,7 +226,8 @@ const commentPost = async (req, res) => {
         },
       }
     );
-    res.status(200).json(commentPost);
+    const getPosts = await App.find({}).sort({ createdAt: -1 });
+    res.status(200).json(getPosts);
   } catch (error) {
     res.status(400).json(error);
   }

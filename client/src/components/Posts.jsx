@@ -7,15 +7,23 @@ import {
   AiOutlineLike,
   AiFillLike,
 } from "react-icons/ai";
-import { GoComment } from "react-icons/go"
-import { BsEmojiSmile, BsThreeDots, BsBookmark } from "react-icons/bs";
+import { GoComment } from "react-icons/go";
+import {
+  BsEmojiSmile,
+  BsThreeDots,
+  BsBookmark,
+  BsBookmarkFill,
+} from "react-icons/bs";
 import { GoLocation } from "react-icons/go";
+import Comment from "./Comment";
 
 export default function Posts() {
   const [post, setPost] = useState("");
   const [posts, setPosts] = useState([]);
   const [disabled, setDisabled] = useState(true);
   const [options, setOptions] = useState(false);
+  const [showComment, setShowComment] = useState(false);
+  const [showCommentId, setShowCommentId] = useState(null);
   const { user } = useAuth();
   const fileInputRef = useRef(null);
   const toggleOptions = (event) => {
@@ -67,6 +75,69 @@ export default function Posts() {
     };
     getPosts();
   }, []);
+
+  const likePost = async (id) => {
+    const response = await fetch(`http://localhost:5000/app/like/${id}`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+
+    const json = await response.json();
+
+    if (response.ok) {
+      setPosts(json);
+    }
+  };
+
+  const unlikePost = async (id) => {
+    const response = await fetch(`http://localhost:5000/app/unlike/${id}`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+
+    const json = await response.json();
+
+    if (response.ok) {
+      setPosts(json);
+    }
+  };
+
+  const savePost = async (id) => {
+    const response = await fetch(`http://localhost:5000/app/save-post/${id}`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+
+    const json = await response.json();
+
+    if (response.ok) {
+      setPosts(json);
+    }
+  };
+
+  const unsavePost = async (id) => {
+    const response = await fetch(
+      `http://localhost:5000/app/unsave-post/${id}`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
+
+    const json = await response.json();
+
+    if (response.ok) {
+      setPosts(json);
+    }
+  };
 
   return (
     <div className="pt-10 mt-2">
@@ -145,21 +216,68 @@ export default function Posts() {
                     />
                   )}
                 </div>
-                <footer className="flex justify-around mt-4 p-1">
-                  <div className="flex text-md gap-1">
-                  <AiOutlineLike className="mt-1" />
-                  <div>Like</div>
+
+                <section className="flex justify-end gap-5">
+                  <div>
+                    {post.likes > 0 && (
+                      <div
+                        className="flex text-md gap-1"
+                        onClick={() => unlikePost(post._id)}
+                      >
+                        <AiFillLike className="mt-1" />
+                        <div>{post.likes}</div>
+                      </div>
+                    )}
                   </div>
-                  <div className="flex text-md gap-1">
+                  {post.comments.length > 0 && (
+                    <div className="flex text-md gap-1">
+                      <h1>Comments:</h1>
+                      <p>{post.comments.length}</p>
+                    </div>
+                  )}
+                  {post.saved > 0 && (
+                    <div
+                      className="flex text-md gap-1"
+                      onClick={() => unsavePost(post._id)}
+                    >
+                      <BsBookmarkFill className="mt-1" />
+                      <h1>{post.saved}</h1>
+                    </div>
+                  )}
+                </section>
+
+                <footer className="flex justify-around mt-4 p-1">
+                  <div
+                    className="flex text-md gap-1"
+                    onClick={() => likePost(post._id)}
+                  >
+                    <AiOutlineLike className="mt-1" />
+                    <div>Like</div>
+                  </div>
+                  <div
+                    className="flex text-md gap-1"
+                    onClick={() =>
+                      setShowCommentId((prevId) =>
+                        prevId === post._id ? null : post._id
+                      )
+                    }
+                  >
                     <GoComment className="mt-1" />
                     <div>Comment</div>
                   </div>
-                  <div className="flex text-md gap-1">
+                  <div
+                    className="flex text-md gap-1"
+                    onClick={() => savePost(post._id)}
+                  >
                     <BsBookmark className="mt-1" />
                     <div>Save</div>
                   </div>
                   <div className="flex text-md gap-1"></div>
                 </footer>
+
+                {showCommentId === post._id && (
+                  <Comment id={post._id} setPosts={setPosts} />
+                )}
               </section>
             </div>
           );

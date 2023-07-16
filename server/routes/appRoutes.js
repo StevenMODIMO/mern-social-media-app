@@ -54,7 +54,7 @@ router.delete("/delete/:id", deletePost);
 
 router.post("/save-post/:id", savePost);
 
-router.delete("/unsave-post/:id", unsavePost);
+router.post("/unsave-post/:id", unsavePost);
 
 router.post("/comment/:id", commentPost);
 
