@@ -65,6 +65,11 @@ export default function Friends() {
         Search and Follow Friends.
       </h1>
 
+      <header className="flex">
+        <div className="bg-blue-500 text-white px-4 py-2 border-r w-full">Find Friends</div>
+        <div className="bg-blue-500 text-white px-4 py-2 border-l w-full">Following</div>
+      </header>
+
       <div className="flex flex-col">
         {filteredUsers.map((user) => (
           <div
