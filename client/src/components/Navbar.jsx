@@ -53,6 +53,7 @@ export default function Navbar() {
         profile={profile.image_path}
         email={profile.email}
         username={profile.username}
+        followers={profile.followers}
       />
     )}
       <div className="container mx-auto py-4 flex justify-between items-center">
