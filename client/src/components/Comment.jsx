@@ -61,7 +61,7 @@ export default function Comment({ id, setPosts }) {
     const json = await response.json();
 
     if (response.ok) {
-      console.log(json);
+      setComments(json);
     } else {
       console.log(json.error);
     }
@@ -81,7 +81,7 @@ export default function Comment({ id, setPosts }) {
     const json = await response.json();
 
     if (response.ok) {
-      console.log(json);
+      setComments(json);
     } else {
       console.log(json.error);
     }
@@ -116,7 +116,7 @@ export default function Comment({ id, setPosts }) {
           );  
         })}
       </div>
-      <form onSubmit={postComment} className="flex items-center">
+      <form onSubmit={postComment} className="flex items-center bg-white">
         <input
           value={comment}
           onChange={(e) => setComment(e.target.value)}
