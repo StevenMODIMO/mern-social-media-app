@@ -121,23 +121,7 @@ export default function Posts() {
     }
   };
 
-  const unsavePost = async (id) => {
-    const response = await fetch(
-      `http://localhost:5000/app/unsave-post/${id}`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      }
-    );
-
-    const json = await response.json();
-
-    if (response.ok) {
-      setPosts(json);
-    }
-  };
+  
 
   return (
     <div className="pt-10 mt-2">
@@ -238,7 +222,6 @@ export default function Posts() {
                   {post.saved > 0 && (
                     <div
                       className="flex text-md gap-1"
-                      onClick={() => unsavePost(post._id)}
                     >
                       <BsBookmarkFill className="mt-1" />
                       <h1>{post.saved}</h1>

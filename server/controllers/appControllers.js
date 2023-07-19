@@ -30,17 +30,6 @@ const getSingleUser = async (req, res) => {
   }
 };
 
-const getUserFollowers = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const user = await User.findOne({ _id: id });
-    const followers = user.followers;
-    res.status(200).json(followers);
-  } catch (error) {
-    res.status(400).json(error);
-  }
-};
-
 const createPost = async (req, res) => {
   const username = req.user.username;
   const { post } = req.body;
@@ -365,7 +354,6 @@ module.exports = {
   getAllPosts,
   getallUsers,
   getSingleUser,
-  getUserFollowers,
   createPost,
   likePost,
   unlikePost,

@@ -3,7 +3,6 @@ const {
   getAllPosts,
   getallUsers,
   getSingleUser,
-  getUserFollowers,
   createPost,
   likePost,
   unlikePost,
@@ -44,8 +43,6 @@ router.get("/", getAllPosts);
 router.get("/users", getallUsers);
 
 router.get("/user/:id", getSingleUser);
-
-router.get("/user/:id", getUserFollowers);
 
 router.post("/post", upload.single("post_image"), createPost);
 
