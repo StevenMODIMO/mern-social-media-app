@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
+import { AiOutlineLike, AiOutlineDelete } from "react-icons/ai";
 
 export default function Comment({ id, setPosts }) {
   const [comment, setComment] = useState("");
@@ -46,12 +47,52 @@ export default function Comment({ id, setPosts }) {
     getComments();
   }, [id]);
 
+  const likeComment = async (comment_id) => {
+    const response = await fetch(
+      `http://localhost:5000/app/like-comment/${id}/${comment_id}`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
+
+    const json = await response.json();
+
+    if (response.ok) {
+      console.log(json);
+    } else {
+      console.log(json.error);
+    }
+  };
+
+  const deleteComment = async (comment_id) => {
+    const response = await fetch(
+      `http://localhost:5000/app/delete-comment/${id}/${comment_id}`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
+
+    const json = await response.json();
+
+    if (response.ok) {
+      console.log(json);
+    } else {
+      console.log(json.error);
+    }
+  };
+
   return (
-    <div>
+    <div className="m-1 bg-gray-100">
       <div>
         {comments.map((comment) => {
           return (
-            <div key={comment._id}>
+            <div key={comment._id} className="m-4 p-1 rounded">
               <header className="flex">
                 <img
                   src={`http://localhost:5000/username/${comment.commented_by}`}
@@ -60,9 +101,19 @@ export default function Comment({ id, setPosts }) {
                 />
                 <h1 className="text-lg font-bold">{comment.commented_by}</h1>
               </header>
-              <h1>{comment.comment}</h1>
+              <div className="flex justify-between">
+                <h1>{comment.comment}</h1>
+                <section className="flex gap-2 text-lg">
+                  <AiOutlineLike onClick={() => likeComment(comment._id)} />
+                  <AiOutlineDelete onClick={() => deleteComment(comment._id)} />
+                </section>
+              </div>
+              <footer className="flex">
+                <div>{comment.likes}</div>
+                <div>Likes</div>
+              </footer>
             </div>
-          );
+          );  
         })}
       </div>
       <form onSubmit={postComment} className="flex items-center">

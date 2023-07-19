@@ -291,21 +291,6 @@ const likeComment = async (req, res) => {
   }
 };
 
-const unlikeComment = async (req, res) => {
-  const { post_id } = req.params;
-  const { comment_id } = req.params;
-  try {
-    const unlike = await App.findOneAndUpdate(
-      { _id: post_id, "comments._id": comment_id },
-      { $inc: { "comments.$.likes": -1 } },
-      { new: true }
-    );
-    res.status(200).json(unlike);
-  } catch (error) {
-    res.status(400).json(error);
-  }
-};
-
 const followUser = async (req, res) => {
   const user = req.user.username;
   const { username } = req.params;
@@ -389,7 +374,6 @@ module.exports = {
   getComments,
   deleteComment,
   likeComment,
-  unlikeComment,
   followUser,
   unfollowUser,
   searchUsers,

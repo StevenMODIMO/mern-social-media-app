@@ -132,14 +132,14 @@ export default function Friends() {
               <section>
                 {isFollowing(user.username) ? (
                   <button className="bg-blue-500 text-white px-4 py-2 rounded-md">
-                    Unfollow
+                    Follows You
                   </button>
                 ) : (
                   <button
                     onClick={() => followUser(user.username)}
                     className="bg-blue-500 text-white px-4 py-2 rounded-md"
                   >
-                    Follow
+                    Follow You
                   </button>
                 )}
               </section>
