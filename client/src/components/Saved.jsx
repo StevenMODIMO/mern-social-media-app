@@ -59,11 +59,8 @@ export default function Saved() {
       }
     );
 
-    const json = await response.json();
-
-    if (response.ok) {
-      setPosts(json)
-    }
+    const newInfo = info.filter(info => info.post_id !== id)
+    setInfo(newInfo)
   };
 
   return (

@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
+import { BsImage } from "react-icons/bs"
 
 export default function User() {
   const { user } = useAuth();
-  const [info, setInfo] = useState({ followers: [] });
+  const [info, setInfo] = useState({ followers: [], saved_post: [] });
 
   const [followers, setFollowers] = useState([]);
 
@@ -33,8 +34,14 @@ export default function User() {
   return (
     <div className="pt-10 mt-5">
       <main>
-        <div className="flex justify-center">
+        <div className="flex justify-center relative">
           <header>
+            <form className="absolute left-48 top-16">
+            <label className="flex">
+            <BsImage />
+            <input type="file" className="hidden" />
+            </label>
+            </form>
             <img
               src={`http://localhost:5000/${info.image_path}`}
               alt="Profile Image"
@@ -43,8 +50,8 @@ export default function User() {
             <h1 className="text-2xl text-center">{user.person}</h1>
           </header>
         </div>
-        <section className="font-light">
-          <div className="flex gap-2 text-lg">
+        <section className="font-thin m-2 text-sm flex flex-col items-center">
+          <div className="flex gap-2">
             <h1>Email:</h1>
             <div>{info.email}</div>
           </div>
@@ -55,7 +62,17 @@ export default function User() {
         </section>
 
         <section>
-          <h1 className="text-center text-lg">Followers</h1>
+          <div className="flex gap-1 mx-auto bg-white p-1 w-fit rounded">
+            <h1>Saved Posts:</h1>
+            <div>{info.saved_post.length}</div>
+          </div>
+        </section>
+
+        <section className="mt-4">
+          <header className="flex gap-2 m-2">
+          <h1>Followers: </h1>
+          <div>{info.followers.length}</div>
+          </header>
           {Array.isArray(info.followers) &&
             info.followers.map((follower) => {
               return (

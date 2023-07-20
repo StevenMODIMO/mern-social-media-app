@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const {
   getAllPosts,
+  getWithTags,
   getallUsers,
   getSingleUser,
   createPost,
@@ -39,6 +40,8 @@ const requireAuth = require("../middleware/requireAuth");
 router.use(requireAuth);
 
 router.get("/", getAllPosts);
+
+router.get("/:tag", getWithTags)
 
 router.get("/users", getallUsers);
 

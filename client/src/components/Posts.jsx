@@ -22,7 +22,8 @@ export default function Posts() {
   const [posts, setPosts] = useState([]);
   const [disabled, setDisabled] = useState(true);
   const [options, setOptions] = useState(false);
-  const [showComment, setShowComment] = useState(false);
+  const [tags, setTags] = useState("");
+  const [tagList, setTagList] = useState([]);
   const [showCommentId, setShowCommentId] = useState(null);
   const { user } = useAuth();
   const fileInputRef = useRef(null);
@@ -121,7 +122,10 @@ export default function Posts() {
     }
   };
 
-  
+  const handleTagInputChange = (e) => {
+    setTags(e.target.value);
+    setTagList(e.target.value.split(",").map((tag) => tag.trim()));
+  };
 
   return (
     <div className="pt-10 mt-2">
@@ -149,6 +153,34 @@ export default function Posts() {
             Post
           </button>
         </form>
+
+        {!disabled && (
+          <form>
+            <label>
+              {tags && <div className="ml-6">
+                {tagList.map((tag, index) => (
+                  <span
+                    key={index}
+                    className="m-1 px-3 py-1 text-xs bg-gray-300 rounded"
+                  >
+                    #{tag}
+                  </span>
+                ))}
+              </div>}
+              <h1 className="text-start ml-6 font-light">
+                (separate by commas ","):
+              </h1>
+              <input
+                value={tags}
+                onChange={handleTagInputChange}
+                type="text"
+                placeholder="Add tags"
+                className="border p-2 m-1 rounded-lg outline-none w-72"
+              />
+            </label>
+          </form>
+        )}
+
         <main className="flex text-3xl justify-around bg-white p-2 rounded-2xl m-2">
           <div>
             <input ref={fileInputRef} type="file" className="hidden" />
@@ -219,9 +251,7 @@ export default function Posts() {
                     </div>
                   )}
                   {post.saved > 0 && (
-                    <div
-                      className="flex text-md gap-1"
-                    >
+                    <div className="flex text-md gap-1">
                       <BsBookmarkFill className="mt-1" />
                       <h1>{post.saved}</h1>
                     </div>

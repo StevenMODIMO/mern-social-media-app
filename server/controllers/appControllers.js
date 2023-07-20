@@ -11,6 +11,15 @@ const getAllPosts = async (req, res) => {
   }
 };
 
+const getWithTags = async (req, res) => {
+  const { tag } = req.params
+  try {
+
+  } catch(error) {
+    res.status(400).json(error)
+  }
+}
+
 const getallUsers = async (req, res) => {
   try {
     const users = await User.find();
@@ -364,6 +373,7 @@ const deleteUser = async (req, res) => {
 
 module.exports = {
   getAllPosts,
+  getWithTags,
   getallUsers,
   getSingleUser,
   createPost,
