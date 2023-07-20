@@ -52,17 +52,6 @@ export default function Home() {
           <h1 className="hidden lg:block">Friends</h1>
         </div>
         <div
-          onClick={() => handleIconClick("notifications")}
-          className={
-            active == "notifications"
-              ? "border-b-4 border-blue-500 w-12 flex justify-center pb-1 lg:w-64 lg:gap-2 lg:justify-start lg:border-hidden lg:bg-gray-800 transition-all duration-500 ease-in-out lg:m-2 lg:p-2 lg:rounded-3xl"
-              : "w-12 flex justify-center pb-1 lg:w-64 lg:gap-2 lg:justify-start lg:cursor-pointer lg:hover:bg-gray-800 transition-all duration-500 ease-in-out lg:m-2 lg:p-2 lg:rounded-3xl"
-          }
-        >
-          <IoMdNotificationsOutline className="lg:mt-1 lg:ml-2" />
-          <h1 className="hidden lg:block">Notifications</h1>
-        </div>
-        <div
           onClick={() => handleIconClick("saved")}
           className={
             active == "saved"
@@ -74,15 +63,15 @@ export default function Home() {
           <h1 className="hidden lg:block">Saved</h1>
         </div>
         <div
-          onClick={() => handleIconClick("tags")}
+          onClick={() => handleIconClick("notifications")}
           className={
-            active == "tags"
+            active == "notifications"
               ? "border-b-4 border-blue-500 w-12 flex justify-center pb-1 lg:w-64 lg:gap-2 lg:justify-start lg:border-hidden lg:bg-gray-800 transition-all duration-500 ease-in-out lg:m-2 lg:p-2 lg:rounded-3xl"
               : "w-12 flex justify-center pb-1 lg:w-64 lg:gap-2 lg:justify-start lg:cursor-pointer lg:hover:bg-gray-800 transition-all duration-500 ease-in-out lg:m-2 lg:p-2 lg:rounded-3xl"
           }
         >
-          <AiOutlineTags className="lg:mt-1 lg:ml-2" />
-          <h1 className="hidden lg:block">Tags</h1>
+          <IoMdNotificationsOutline className="lg:mt-1 lg:ml-2" />
+          <h1 className="hidden lg:block">Notifications</h1>
         </div>
       </header>
 
@@ -92,7 +81,6 @@ export default function Home() {
         {active === "friends" && <Friends />}
         {active === "notifications" && <Notifications />}
         {active === "saved" && <Saved />}
-        {active === "tags" && <Tags />}
       </main>
 
       <section className="hidden lg:block lg:fixed lg:right-0 lg:w-80 lg:bg-white lg:h-screen">

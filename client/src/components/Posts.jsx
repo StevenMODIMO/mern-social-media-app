@@ -189,7 +189,6 @@ export default function Posts() {
                   </div>
                   <BsThreeDots className="text-lg mt-1" />
                 </header>
-
                 <div className="m-1 rounded">
                   <h1 className="p-4">{post.post}</h1>
                   {post.post_image_url && (
