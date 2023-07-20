@@ -38,10 +38,10 @@ export default function Posts() {
 
   const handlePost = async (e) => {
     e.preventDefault();
-    const t = tags.split(",").map((tag) => tag.trim())
+    const t = tags.split(",").map((tag) => tag.trim());
     const formData = new FormData();
     formData.append("post", post);
-    formData.append("tags", t)
+    formData.append("tags", t);
     formData.append("post_image", fileInputRef.current.files[0]);
 
     const response = await fetch("http://localhost:5000/app/post", {
@@ -237,6 +237,9 @@ export default function Posts() {
 
       <main className="mt-5">
         {posts.map((post) => {
+          const tags = post.tags;
+          const strings = tags.join(tags);
+          const tags_array = strings.split(",");
           return (
             <div key={post._id} className="bg-white rounded m-4">
               <section>
@@ -262,9 +265,19 @@ export default function Posts() {
                   )}
                 </div>
 
-                <section>
-                  {console.log(post.tags)}
-                </section>
+                {post.tags.length > 0 && (
+                  <section className="flex">
+                    {tags_array.map((tag, index) => {
+                      return (
+                        <div key={index}>
+                          <h1 className="m-1 px-3 py-1 text-xs bg-gray-300 rounded w-fit">
+                            #{tag}
+                          </h1>
+                        </div>
+                      );
+                    })}
+                  </section>
+                )}
 
                 <section className="flex justify-end gap-5">
                   <div>
