@@ -12,7 +12,7 @@ export default function Profile({ id, profile, email, username, followers }) {
         <p className="text-xs text-gray-500">{id}</p>
       </div>
       <div>
-        <section className="flex font-light gap-2 bg-gray-100 w-fit p-1 rounded m-1">
+        <section className="flex mx-auto my-2 font-light gap-2 bg-gray-100 w-fit p-1 rounded m-1">
         <div className="font-light">Followers:</div>
         <h1>{followers.length}</h1>
         </section>

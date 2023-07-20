@@ -12,6 +12,11 @@ const userSchema = mongoose.Schema({
       username: String,
     },
   ],
+  following: [
+    {
+      username: String,
+    },
+  ],
   posts: [
     {
       post: String,

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AiOutlineHome, AiOutlineTags } from "react-icons/ai";
+import { AiOutlineHome, AiOutlineTags, AiOutlineUser } from "react-icons/ai";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { FaUserFriends } from "react-icons/fa";
 import { BsBookmark, BsSearch } from "react-icons/bs";
@@ -7,7 +7,7 @@ import Posts from "../components/Posts";
 import Friends from "../components/Friends";
 import Notifications from "../components/Notifications";
 import Tags from "../components/Tags";
-import Search from "../components/Search";
+import User from "../components/User";
 import Saved from "../components/Saved";
 
 export default function Home() {
@@ -26,7 +26,7 @@ export default function Home() {
               : "w-12 flex justify-center pb-1 lg:w-64 lg:gap-2 lg:justify-start lg:cursor-pointer lg:hover:bg-gray-800 transition-all duration-500 ease-in-out lg:m-2 lg:p-2 lg:rounded-3xl"
           }
         >
-          <BsSearch className="lg:mt-1 lg:ml-2" />
+          <AiOutlineUser className="lg:mt-1 lg:ml-2" />
           <h1 className="hidden lg:block">Search</h1>
         </div>
         <div
@@ -88,7 +88,7 @@ export default function Home() {
 
       <main className="lg:ml-72">
         {active === "home" && <Posts />}
-        {active === "search" && <Search />}
+        {active === "search" && <User />}
         {active === "friends" && <Friends />}
         {active === "notifications" && <Notifications />}
         {active === "saved" && <Saved />}

@@ -299,6 +299,18 @@ const followUser = async (req, res) => {
       },
       { new: true }
     );
+
+    await User.findOneAndUpdate(
+      { username: username },
+      {
+        $push: {
+          following: {
+            username: user,
+          },
+        },
+      },
+      { new: true }
+    );
     const users = await User.find();
     res.status(200).json(users);
   } catch (error) {
