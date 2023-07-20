@@ -28,6 +28,7 @@ const userSchema = mongoose.Schema({
           likes: { type: Number, default: 0 },
         },
       ],
+      tags: [String],
       likes: { type: Number, default: 0 },
       saved: { type: Number, default: 0 },
       post_id: String,

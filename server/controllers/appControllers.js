@@ -41,7 +41,7 @@ const getSingleUser = async (req, res) => {
 
 const createPost = async (req, res) => {
   const username = req.user.username;
-  const { post } = req.body;
+  const { post, tags } = req.body;
   let image_path;
 
   if (req.file) {
@@ -53,12 +53,13 @@ const createPost = async (req, res) => {
       posted_by: username,
       post: post,
       post_image_url: image_path,
+      tags: tags
     });
     await User.findOneAndUpdate(
       { username },
       {
         $push: {
-          posts: { post, post_id: newPost._id },
+          posts: { post, post_id: newPost._id, tags },
         },
       }
     );

@@ -22,6 +22,7 @@ export default function Posts() {
   const [posts, setPosts] = useState([]);
   const [disabled, setDisabled] = useState(true);
   const [options, setOptions] = useState(false);
+  const [imagePreview, setImagePreview] = useState(null);
   const [tags, setTags] = useState("");
   const [tagList, setTagList] = useState([]);
   const [showCommentId, setShowCommentId] = useState(null);
@@ -37,8 +38,10 @@ export default function Posts() {
 
   const handlePost = async (e) => {
     e.preventDefault();
+    const t = tags.split(",").map((tag) => tag.trim())
     const formData = new FormData();
     formData.append("post", post);
+    formData.append("tags", t)
     formData.append("post_image", fileInputRef.current.files[0]);
 
     const response = await fetch("http://localhost:5000/app/post", {
@@ -53,6 +56,7 @@ export default function Posts() {
 
     if (response.ok) {
       setPost("");
+      setImagePreview(null);
     } else {
       console.log(json.error);
     }
@@ -157,16 +161,18 @@ export default function Posts() {
         {!disabled && (
           <form>
             <label>
-              {tags && <div className="ml-6">
-                {tagList.map((tag, index) => (
-                  <span
-                    key={index}
-                    className="m-1 px-3 py-1 text-xs bg-gray-300 rounded"
-                  >
-                    #{tag}
-                  </span>
-                ))}
-              </div>}
+              {tags && (
+                <div className="ml-6">
+                  {tagList.map((tag, index) => (
+                    <span
+                      key={index}
+                      className="m-1 px-3 py-1 text-xs bg-gray-300 rounded"
+                    >
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+              )}
               <h1 className="text-start ml-6 font-light">
                 (separate by commas ","):
               </h1>
@@ -181,9 +187,33 @@ export default function Posts() {
           </form>
         )}
 
+        {imagePreview && (
+          <img
+            src={imagePreview}
+            alt="Image Preview"
+            className="h-32 w-32 mx-auto w-full rounded"
+          />
+        )}
+
         <main className="flex text-3xl justify-around bg-white p-2 rounded-2xl m-2">
           <div>
-            <input ref={fileInputRef} type="file" className="hidden" />
+            <input
+              ref={fileInputRef}
+              type="file"
+              className="hidden"
+              onChange={(e) => {
+                // Handle the image preview when a file is selected
+                if (e.target.files && e.target.files.length > 0) {
+                  const reader = new FileReader();
+                  reader.onloadend = () => {
+                    setImagePreview(reader.result);
+                  };
+                  reader.readAsDataURL(e.target.files[0]);
+                } else {
+                  setImagePreview(null);
+                }
+              }}
+            />
             <AiOutlineFileImage onClick={() => fileInputRef.current.click()} />
           </div>
           <div>
@@ -231,6 +261,10 @@ export default function Posts() {
                     />
                   )}
                 </div>
+
+                <section>
+                  {console.log(post.tags)}
+                </section>
 
                 <section className="flex justify-end gap-5">
                   <div>
