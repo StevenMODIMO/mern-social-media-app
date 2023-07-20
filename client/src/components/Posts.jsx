@@ -266,7 +266,7 @@ export default function Posts() {
                 </div>
 
                 {post.tags.length > 0 && (
-                  <section className="flex">
+                  <section className="flex ml-4">
                     {tags_array.map((tag, index) => {
                       return (
                         <div key={index}>
