@@ -6,7 +6,6 @@ import { BsBookmark, BsSearch } from "react-icons/bs";
 import Posts from "../components/Posts";
 import Friends from "../components/Friends";
 import Notifications from "../components/Notifications";
-import Tags from "../components/Tags";
 import User from "../components/User";
 import Saved from "../components/Saved";
 

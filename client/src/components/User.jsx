@@ -1,12 +1,35 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
-import { BsImage } from "react-icons/bs"
+import { BsImage, BsBookmarkFill } from "react-icons/bs";
+import { AiFillLike } from "react-icons/ai";
+import { GoComment } from "react-icons/go";
 
 export default function User() {
   const { user } = useAuth();
-  const [info, setInfo] = useState({ followers: [], saved_post: [] });
-
+  const [info, setInfo] = useState({
+    followers: [],
+    saved_post: [],
+    posts: [],
+  });
   const [followers, setFollowers] = useState([]);
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const getPosts = async () => {
+      const response = await fetch("http://localhost:5000/app", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+
+      const json = await response.json();
+
+      if (response.ok) {
+        setPosts(json);
+      }
+    };
+    getPosts();
+  }, []);
 
   useEffect(() => {
     const getUserInfo = async () => {
@@ -31,16 +54,20 @@ export default function User() {
 
     getUserInfo();
   }, []);
+
+  const userPosts = info.posts.map((post) => post.post_id);
+  const filtered = posts.filter((item) => userPosts.includes(item._id));
+  console.log(filtered);
   return (
     <div className="pt-10 mt-5">
       <main>
         <div className="flex justify-center relative">
           <header>
             <form className="absolute left-48 top-16">
-            <label className="flex">
-            <BsImage />
-            <input type="file" className="hidden" />
-            </label>
+              <label className="flex">
+                <BsImage />
+                <input type="file" className="hidden" />
+              </label>
             </form>
             <img
               src={`http://localhost:5000/${info.image_path}`}
@@ -62,16 +89,53 @@ export default function User() {
         </section>
 
         <section>
-          <div className="flex gap-1 mx-auto bg-white p-1 w-fit rounded">
+          <div className="flex gap-1 mx-auto my-3 bg-white p-1 w-fit rounded">
+            <h1>Created Posts:</h1>
+            <div>{info.posts.length}</div>
+          </div>
+          <div className="flex gap-1 mx-auto my-3 bg-white p-1 w-fit rounded">
             <h1>Saved Posts:</h1>
             <div>{info.saved_post.length}</div>
           </div>
         </section>
 
+        <main>
+          {filtered.map((post) => {
+            return (
+              <div key={post._id} className="bg-white rounded m-4 p-2">
+                <h1 className="p-4">{post.post}</h1>
+                {post.post_image_url && (
+                  <img
+                    src={`http://localhost:5000/${post.post_image_url}`}
+                    alt="Profile Image"
+                    className="h-44 w-44 mx-auto w-full rounded"
+                  />
+                )}
+                <section className="flex justify-end gap-5">
+                  <div>
+                    <div className="flex text-md gap-1">
+                      <AiFillLike className="mt-1" />
+                      <div>{post.likes}</div>
+                    </div>
+                  </div>
+                  <div className="flex text-md gap-1">
+                    <p>{post.comments.length}</p>
+                    <h1>Comments</h1>
+                  </div>
+                  <div className="flex text-md gap-1">
+                    <BsBookmarkFill className="mt-1" />
+                    <h1>{post.saved}</h1>
+                  </div>
+                </section>
+              </div>
+            );
+          })}
+        </main>
+
         <section className="mt-4">
           <header className="flex gap-2 m-2">
-          <h1>Followers: </h1>
-          <div>{info.followers.length}</div>
+            <h1>Followers: </h1>
+            <div>{info.followers.length}</div>
           </header>
           {Array.isArray(info.followers) &&
             info.followers.map((follower) => {
