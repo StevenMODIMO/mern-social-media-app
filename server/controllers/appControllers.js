@@ -4,7 +4,7 @@ const path = require("path");
 
 const getAllPosts = async (req, res) => {
   try {
-    const getPosts = await App.find({}).sort({ createdAt: -1 });
+    const getPosts = await App.find({}).sort({ updatedAt: -1 });
     res.status(200).json(getPosts);
   } catch (error) {
     res.status(400).json(error);
@@ -12,13 +12,12 @@ const getAllPosts = async (req, res) => {
 };
 
 const getWithTags = async (req, res) => {
-  const { tag } = req.params
+  const { tag } = req.params;
   try {
-
-  } catch(error) {
-    res.status(400).json(error)
+  } catch (error) {
+    res.status(400).json(error);
   }
-}
+};
 
 const getallUsers = async (req, res) => {
   try {
@@ -53,7 +52,7 @@ const createPost = async (req, res) => {
       posted_by: username,
       post: post,
       post_image_url: image_path,
-      tags: tags
+      tags: tags,
     });
     await User.findOneAndUpdate(
       { username },
@@ -128,7 +127,8 @@ const deletePost = async (req, res) => {
       },
       { new: true }
     );
-    res.status(200).json(deletePost);
+    const getPosts = await App.find({}).sort({ createdAt: -1 });
+    res.status(200).json(getPosts);
   } catch (error) {
     res.status(400).json(error);
   }

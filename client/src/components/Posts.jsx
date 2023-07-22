@@ -191,7 +191,7 @@ export default function Posts() {
           <img
             src={imagePreview}
             alt="Image Preview"
-            className="h-32 w-32 mx-auto w-full rounded"
+            className="h-32 w-32 mx-auto  rounded"
           />
         )}
 

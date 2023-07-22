@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { BsImage, BsBookmarkFill } from "react-icons/bs";
-import { AiFillLike } from "react-icons/ai";
-import { GoComment } from "react-icons/go";
+import { AiFillLike, AiOutlineDelete } from "react-icons/ai";
 
 export default function User() {
   const { user } = useAuth();
@@ -55,6 +54,23 @@ export default function User() {
     getUserInfo();
   }, []);
 
+  const deletePost = async (id) => {
+    const response = await fetch(`http://localhost:5000/app/delete/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+
+    const json = await response.json();
+
+    if (response.ok) {
+      setPosts(json);
+    } else {
+      console.log(json.error);
+    }
+  };
+
   const userPosts = info.posts.map((post) => post.post_id);
   const filtered = posts.filter((item) => userPosts.includes(item._id));
   console.log(filtered);
@@ -103,12 +119,18 @@ export default function User() {
           {filtered.map((post) => {
             return (
               <div key={post._id} className="bg-white rounded m-4 p-2">
+                <header
+                  className="flex justify-end text-xl"
+                  onClick={() => deletePost(post._id)}
+                >
+                  <AiOutlineDelete />
+                </header>
                 <h1 className="p-4">{post.post}</h1>
                 {post.post_image_url && (
                   <img
                     src={`http://localhost:5000/${post.post_image_url}`}
                     alt="Profile Image"
-                    className="h-44 w-44 mx-auto w-full rounded"
+                    className="h-44 w-44 mx-auto rounded"
                   />
                 )}
                 <section className="flex justify-end gap-5">
