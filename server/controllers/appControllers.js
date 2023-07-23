@@ -372,6 +372,10 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const getNofications = async (req, res) => {
+  const username = req.user.username;
+};
+
 module.exports = {
   getAllPosts,
   getWithTags,
@@ -391,4 +395,5 @@ module.exports = {
   unfollowUser,
   searchUsers,
   deleteUser,
+  getNofications,
 };

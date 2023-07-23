@@ -39,6 +39,16 @@ const userSchema = mongoose.Schema({
       post_id: String,
     },
   ],
+  notifications: [
+    {
+      title: String,
+      message: String,
+      createdAt: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
 });
 
 userSchema.statics.signup = async function signup(
