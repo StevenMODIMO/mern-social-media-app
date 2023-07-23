@@ -4,7 +4,7 @@ const path = require("path");
 
 const getAllPosts = async (req, res) => {
   try {
-    const getPosts = await App.find({}).sort({ updatedAt: -1 });
+    const getPosts = await App.find({}).sort({ createdAt: -1 });
     res.status(200).json(getPosts);
   } catch (error) {
     res.status(400).json(error);

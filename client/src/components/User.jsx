@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { BsImage, BsBookmarkFill } from "react-icons/bs";
 import { AiFillLike, AiOutlineDelete } from "react-icons/ai";
+import Loader from "./Loader"
 
 export default function User() {
   const { user } = useAuth();
@@ -12,9 +13,12 @@ export default function User() {
   });
   const [followers, setFollowers] = useState([]);
   const [posts, setPosts] = useState([]);
+  const [tab, setTab] = useState(0);
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const getPosts = async () => {
+      setLoading(true)
       const response = await fetch("http://localhost:5000/app", {
         headers: {
           Authorization: `Bearer ${user.token}`,
@@ -25,6 +29,7 @@ export default function User() {
 
       if (response.ok) {
         setPosts(json);
+        setLoading(false)
       }
     };
     getPosts();
@@ -76,7 +81,7 @@ export default function User() {
   console.log(filtered);
   return (
     <div className="pt-10 mt-5">
-      <main>
+      {loading ? <Loader /> : <main>
         <div className="flex justify-center relative">
           <header>
             <form className="absolute left-48 top-16">
@@ -115,67 +120,92 @@ export default function User() {
           </div>
         </section>
 
-        <main>
-          {filtered.map((post) => {
-            return (
-              <div key={post._id} className="bg-white rounded m-4 p-2">
-                <header
-                  className="flex justify-end text-xl"
-                  onClick={() => deletePost(post._id)}
-                >
-                  <AiOutlineDelete />
-                </header>
-                <h1 className="p-4">{post.post}</h1>
-                {post.post_image_url && (
-                  <img
-                    src={`http://localhost:5000/${post.post_image_url}`}
-                    alt="Profile Image"
-                    className="h-44 w-44 mx-auto rounded"
-                  />
-                )}
-                <section className="flex justify-end gap-5">
-                  <div>
-                    <div className="flex text-md gap-1">
-                      <AiFillLike className="mt-1" />
-                      <div>{post.likes}</div>
-                    </div>
-                  </div>
-                  <div className="flex text-md gap-1">
-                    <p>{post.comments.length}</p>
-                    <h1>Comments</h1>
-                  </div>
-                  <div className="flex text-md gap-1">
-                    <BsBookmarkFill className="mt-1" />
-                    <h1>{post.saved}</h1>
-                  </div>
-                </section>
-              </div>
-            );
-          })}
-        </main>
+        <section className="flex border-2 rounded">
+          <div
+            className={
+              tab === 0
+                ? "bg-blue-500 w-full p-1 rounded"
+                : "w-full p-1 rounded"
+            }
+            onClick={() => setTab(0)}
+          >
+            Posts
+          </div>
+          <div
+            className={
+              tab === 1
+                ? "bg-blue-500 w-full p-1 rounded"
+                : "w-full p-1 rounded"
+            }
+            onClick={() => setTab(1)}
+          >
+            Followers
+          </div>
+        </section>
 
-        <section className="mt-4">
-          <header className="flex gap-2 m-2">
-            <h1>Followers: </h1>
-            <div>{info.followers.length}</div>
-          </header>
-          {Array.isArray(info.followers) &&
-            info.followers.map((follower) => {
+        {tab === 0 ? (
+          <main>
+            {filtered.map((post) => {
               return (
-                <div key={follower.username}>
-                  <header className="flex">
-                    <img
-                      src={`http://localhost:5000/username/${follower.username}`}
-                      alt="Profile Image"
-                      className="h-8 rounded-md mr-2"
-                    />
-                    <h1>{follower.username}</h1>
+                <div key={post._id} className="bg-white rounded m-4 p-2">
+                  <header
+                    className="flex justify-end text-xl"
+                    onClick={() => deletePost(post._id)}
+                  >
+                    <AiOutlineDelete />
                   </header>
+                  <h1 className="p-4">{post.post}</h1>
+                  {post.post_image_url && (
+                    <img
+                      src={`http://localhost:5000/${post.post_image_url}`}
+                      alt="Profile Image"
+                      className="h-44 w-44 mx-auto rounded"
+                    />
+                  )}
+                  <section className="flex justify-end gap-5">
+                    <div>
+                      <div className="flex text-md gap-1">
+                        <AiFillLike className="mt-1" />
+                        <div>{post.likes}</div>
+                      </div>
+                    </div>
+                    <div className="flex text-md gap-1">
+                      <p>{post.comments.length}</p>
+                      <h1>Comments</h1>
+                    </div>
+                    <div className="flex text-md gap-1">
+                      <BsBookmarkFill className="mt-1" />
+                      <h1>{post.saved}</h1>
+                    </div>
+                  </section>
                 </div>
               );
             })}
-        </section>
-      </main>
+          </main>
+        ) : (
+          <section className="mt-4">
+            <header className="flex gap-2 m-2">
+              <h1>Followers: </h1>
+              <div>{info.followers.length}</div>
+            </header>
+            {Array.isArray(info.followers) &&
+              info.followers.map((follower) => {
+                return (
+                  <div key={follower.username}>
+                    <header className="flex">
+                      <img
+                        src={`http://localhost:5000/username/${follower.username}`}
+                        alt="Profile Image"
+                        className="h-8 rounded-md mr-2"
+                      />
+                      <h1>{follower.username}</h1>
+                    </header>
+                  </div>
+                );
+              })}
+          </section>
+        )}
+      </main>}
     </div>
   );
 }
