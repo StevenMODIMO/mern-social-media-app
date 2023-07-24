@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { PiMarkerCircleDuotone } from "react-icons/pi";
+import { BiRadioCircleMarked } from "react-icons/bi";
 
 export default function Notifications() {
   const [notifications, setNotifications] = useState([]);
@@ -69,13 +70,20 @@ export default function Notifications() {
                   <div>{time}</div>
                 </section>
               </footer>
-              <div
-                className="font-light flex justify-end"
-                onClick={() => markRead(not._id)}
-              >
-                <h1>Mark as Read</h1>
-                <PiMarkerCircleDuotone className="mt-1 text-lg" />
-              </div>
+              {!not.read ? (
+                <div
+                  className="font-light flex justify-end"
+                  onClick={() => markRead(not._id)}
+                >
+                  <h1>Mark as Read</h1>
+                  <PiMarkerCircleDuotone className="mt-1 text-lg" />
+                </div>
+              ) : (
+                <div className="font-bold flex justify-end">
+                  <BiRadioCircleMarked className="mt-1 text-lg" />
+                  <p>Read</p>
+                </div>
+              )}
             </section>
           );
         })}
