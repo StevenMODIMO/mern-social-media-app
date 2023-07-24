@@ -39,6 +39,12 @@ export default function Notifications() {
     });
 
     const json = await response.json();
+
+    if (response.ok) {
+      setNotifications(json.notifications);
+    } else {
+      console.log(json.error);
+    }
   };
 
   return (
@@ -72,14 +78,14 @@ export default function Notifications() {
               </footer>
               {!not.read ? (
                 <div
-                  className="font-light flex justify-end"
+                  className="font-light flex justify-end cursor-pointer"
                   onClick={() => markRead(not._id)}
                 >
                   <h1>Mark as Read</h1>
                   <PiMarkerCircleDuotone className="mt-1 text-lg" />
                 </div>
               ) : (
-                <div className="font-bold flex justify-end">
+                <div className="font-bold flex justify-end cursor-pointer">
                   <BiRadioCircleMarked className="mt-1 text-lg" />
                   <p>Read</p>
                 </div>

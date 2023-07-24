@@ -426,6 +426,9 @@ const readNotification = async (req,res) => {
     const update = await User.findOneAndUpdate({ username, "notifications._id": id }, {
       $set: { "notifications.$.read": true}
     }, { new: true})
+
+    const updated = await User.findOne({username })
+    res.status(200).json(updated)
   } catch(error) {
     res.status(400).json(error)
   }
