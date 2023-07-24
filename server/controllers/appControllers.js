@@ -419,6 +419,18 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const readNotification = async (req,res) => {
+  const username = req.user.username
+  const { id } = req.params
+  try {
+    const update = await User.findOneAndUpdate({ username, "notifications._id": id }, {
+      $set: { "notifications.$.read": true}
+    }, { new: true})
+  } catch(error) {
+    res.status(400).json(error)
+  }
+}
+
 module.exports = {
   getAllPosts,
   getWithTags,
@@ -438,4 +450,5 @@ module.exports = {
   unfollowUser,
   searchUsers,
   deleteUser,
+  readNotification
 };
