@@ -47,6 +47,7 @@ const userSchema = mongoose.Schema({
         type: Date,
         default: Date.now,
       },
+      read: { type: Boolean, default: false}
     },
   ],
 });
@@ -84,11 +85,19 @@ userSchema.statics.signup = async function signup(
   const salt = await bcrytp.genSalt();
   const hash = await bcrytp.hash(password, salt);
 
+  const notificationData = {
+    title: "Account Created",
+    message:
+      "Your account has been successfully created. Explore mernSocial with freedom.",
+    createdAt: new Date(),
+  };
+
   const final = await this.create({
     email,
     password: hash,
     username,
     image_path,
+    notifications: [notificationData],
   });
 
   return final;

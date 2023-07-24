@@ -18,7 +18,6 @@ const {
   unfollowUser,
   searchUsers,
   deleteUser,
-  getNofications,
 } = require("../controllers/appControllers");
 const { v4: uuidV4 } = require("uuid");
 const uuid = uuidV4();
@@ -75,7 +74,5 @@ router.post("/unfollow/:username", unfollowUser);
 router.post("/search/:username", searchUsers);
 
 router.delete("/delete-user/:id", deleteUser);
-
-router.get("/notifications", getNofications);
 
 module.exports = router;

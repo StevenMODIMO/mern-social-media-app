@@ -62,6 +62,22 @@ const createPost = async (req, res) => {
         },
       }
     );
+
+    const notificationData = {
+      title: "New Post",
+      message: "You have created a new post.",
+      createdAt: new Date(),
+    };
+
+    await User.findOneAndUpdate(
+      { username },
+      {
+        $push: {
+          notifications: notificationData,
+        },
+      }
+    );
+
     const getPosts = await App.find({}).sort({ createdAt: -1 });
     res.status(200).json(getPosts);
   } catch (error) {
@@ -72,17 +88,33 @@ const createPost = async (req, res) => {
 const likePost = async (req, res) => {
   const { id } = req.params;
   try {
+
     const likePost = await App.findOneAndUpdate(
       { _id: id },
       { $inc: { likes: 1 } },
       { new: true }
     );
+
     const user = likePost.posted_by;
+
     const post = await User.findOneAndUpdate(
       { username: user, "posts.post_id": id },
       { $inc: { "posts.$.likes": 1 } },
       { new: true }
     );
+
+    const notificationData = {
+      title: "Post Liked",
+      message: "Somebody liked your post.",
+      createdAt: new Date(),
+    };
+
+    await User.findOneAndUpdate({ username: user}, {
+      $push: {
+        notifications: notificationData,
+      }
+    })
+    
     const getPosts = await App.find({}).sort({ createdAt: -1 });
     res.status(200).json(getPosts);
   } catch (error) {
@@ -115,7 +147,9 @@ const deletePost = async (req, res) => {
   const { id } = req.params;
   try {
     const deletePost = await App.findOneAndDelete({ _id: id }, { new: true });
+
     const user = deletePost.posted_by;
+
     await User.findOneAndUpdate(
       { username: user },
       {
@@ -127,6 +161,19 @@ const deletePost = async (req, res) => {
       },
       { new: true }
     );
+
+    const notificationData = {
+      title: "Post Removed",
+      message: "You removed a post.",
+      createdAt: new Date(),
+    };
+
+    await User.findOneAndUpdate({ username: user}, {
+      $push: {
+        notifications: notificationData,
+      }
+    })
+
     const getPosts = await App.find({}).sort({ createdAt: -1 });
     res.status(200).json(getPosts);
   } catch (error) {
@@ -372,10 +419,6 @@ const deleteUser = async (req, res) => {
   }
 };
 
-const getNofications = async (req, res) => {
-  const username = req.user.username;
-};
-
 module.exports = {
   getAllPosts,
   getWithTags,
@@ -395,5 +438,4 @@ module.exports = {
   unfollowUser,
   searchUsers,
   deleteUser,
-  getNofications,
 };

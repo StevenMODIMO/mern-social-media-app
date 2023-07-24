@@ -1,7 +1,7 @@
 export default function Loader() {
   return (
     <button
-      className="flex items-center justify-center w-full text-blue-500 h-96 disabled:cursor-not-allowed"
+      className="flex items-center justify-center w-full text-blue-500 h-96"
       disabled
     >
       <svg
