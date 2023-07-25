@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const {
   getAllPosts,
-  findByUsername,
   getallUsers,
   getSingleUser,
   createPost,
@@ -16,9 +15,9 @@ const {
   likeComment,
   followUser,
   unfollowUser,
-  searchUsers,
   deleteUser,
-  readNotification
+  readNotification,
+  findByUsername,
 } = require("../controllers/appControllers");
 const { v4: uuidV4 } = require("uuid");
 const uuid = uuidV4();
@@ -41,8 +40,6 @@ const requireAuth = require("../middleware/requireAuth");
 router.use(requireAuth);
 
 router.get("/", getAllPosts);
-
-router.get("/:username", findByUsername);
 
 router.get("/users", getallUsers);
 
@@ -72,10 +69,10 @@ router.post("/follow/:username", followUser);
 
 router.post("/unfollow/:username", unfollowUser);
 
-router.post("/search/:username", searchUsers);
-
 router.delete("/delete-user/:id", deleteUser);
 
-router.post("/read/:id", readNotification)
+router.post("/read/:id", readNotification);
+
+router.get("/:username", findByUsername);
 
 module.exports = router;

@@ -11,19 +11,10 @@ const getAllPosts = async (req, res) => {
   }
 };
 
-const findByUsername = async (req, res) => {
-  const { username } = req.params;
-  try {
-    const user = await User.findOne({ username })
-    res.status(200).json(user)
-  } catch (error) {
-    res.status(400).json(error);
-  }
-};
 
 const getallUsers = async (req, res) => {
   try {
-    const users = await User.find();
+    const users = await User.find({});
     res.status(200).json(users);
   } catch (error) {
     res.status(400).json(error);
@@ -401,15 +392,7 @@ const unfollowUser = async (req, res) => {
   }
 };
 
-const searchUsers = async (req, res) => {
-  const { username } = req.params;
-  try {
-    const user = await User.findOne({ username: username });
-    res.status(200).json(user);
-  } catch (error) {
-    res.status(400).json(error);
-  }
-};
+
 
 const deleteUser = async (req, res) => {
   const { id } = req.params;
@@ -436,9 +419,19 @@ const readNotification = async (req,res) => {
   }
 }
 
+
+const findByUsername = async (req, res) => {
+  const { username } = req.params;
+  try {
+    const users = await User.find({ username: { $regex: `^${username}`, $options: 'i' } });
+    res.status(200).json(users)
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+
 module.exports = {
   getAllPosts,
-  findByUsername,
   getallUsers,
   getSingleUser,
   createPost,
@@ -453,7 +446,7 @@ module.exports = {
   likeComment,
   followUser,
   unfollowUser,
-  searchUsers,
   deleteUser,
-  readNotification
+  readNotification,
+  findByUsername
 };
