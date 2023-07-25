@@ -251,7 +251,6 @@ export default function Posts() {
                         />
                         <h1 className="text-lg font-bold">{post.posted_by}</h1>
                       </div>
-                      <BsThreeDots className="text-lg mt-1" />
                     </header>
                     <div className="m-1 rounded">
                       <h1 className="p-4">{post.post}</h1>
