@@ -139,7 +139,7 @@ const unlikePost = async (req, res) => {
 const deletePost = async (req, res) => {
   const { id } = req.params;
   try {
-    const deletePost = await App.findOneAndDelete({ _id: id }, { new: true });
+    const deletePost = await App.findOne({ _id: id });
 
     const user = deletePost.posted_by;
 

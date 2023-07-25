@@ -7,7 +7,6 @@ import Loader from "./Loader"
 export default function User() {
   const { user } = useAuth();
   const [info, setInfo] = useState({
-    followers: [],
     saved_post: [],
     posts: [],
   });
@@ -50,7 +49,6 @@ export default function User() {
 
       if (response.ok) {
         setInfo(json);
-        setFollowers(json.followers);
       } else {
         console.log(json.error);
       }
@@ -119,30 +117,11 @@ export default function User() {
           </div>
         </section>
 
-        <section className="flex border-2 rounded">
-          <div
-            className={
-              tab === 0
-                ? "bg-blue-500 w-full p-1 rounded"
-                : "w-full p-1 rounded"
-            }
-            onClick={() => setTab(0)}
-          >
-            Posts
-          </div>
-          <div
-            className={
-              tab === 1
-                ? "bg-blue-500 w-full p-1 rounded"
-                : "w-full p-1 rounded"
-            }
-            onClick={() => setTab(1)}
-          >
-            Followers
-          </div>
+        <section className="flex rounded">
+          <h1>Your Posts</h1>
         </section>
 
-        {tab === 0 ? (
+        {tab === 0 && (
           <main>
             {filtered.map((post) => {
               return (
@@ -181,28 +160,6 @@ export default function User() {
               );
             })}
           </main>
-        ) : (
-          <section className="mt-4">
-            <header className="flex gap-2 m-2">
-              <h1>Followers: </h1>
-              <div>{info.followers.length}</div>
-            </header>
-            {Array.isArray(info.followers) &&
-              info.followers.map((follower) => {
-                return (
-                  <div key={follower.username}>
-                    <header className="flex">
-                      <img
-                        src={`http://localhost:5000/username/${follower.username}`}
-                        alt="Profile Image"
-                        className="h-8 rounded-md mr-2"
-                      />
-                      <h1>{follower.username}</h1>
-                    </header>
-                  </div>
-                );
-              })}
-          </section>
         )}
       </main>}
     </div>

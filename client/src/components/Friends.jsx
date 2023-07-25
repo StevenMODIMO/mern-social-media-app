@@ -7,6 +7,7 @@ export default function Friends() {
   const [users, setUsers] = useState([]);
   const [followers, setFollowers] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const [others, setOthers] = useState([]);
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
 
@@ -87,26 +88,6 @@ export default function Friends() {
     inputValue.trim() === "" && setLoading(false);
   });
 
-  const followUser = async (username) => {
-    const response = await fetch(
-      `http://localhost:5000/app/follow/${username}`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      }
-    );
-
-    const json = await response.json();
-
-    if (response.ok) {
-      console.log(json);
-    } else {
-      console.log(json.error);
-    }
-  };
-
   return (
     <div className="pt-10 mt-5 h-screen">
       <form>
@@ -127,9 +108,6 @@ export default function Friends() {
         <section>
           <div className="mt-5">
             {filterPeople.map((p) => {
-              const isFollower = followers.some(
-                (u) => u.username == p.username
-              );
               return (
                 <div
                   key={p._id}
@@ -143,18 +121,6 @@ export default function Friends() {
                     />
                     <h2 className="text-xl font-bold">{p.username}</h2>
                   </header>
-                  {!isFollower ? (
-                    <button
-                      onClick={() => followUser(user.username)}
-                      className="bg-blue-500 p-1 text-sm text-white rounded"
-                    >
-                      Follow
-                    </button>
-                  ) : (
-                    <button className="bg-blue-500 p-1 text-sm text-white rounded">
-                      Follow Back
-                    </button>
-                  )}
                 </div>
               );
             })}
@@ -163,9 +129,6 @@ export default function Friends() {
           {inputValue.trim() === "" && (
             <main className="mt-5">
               {filteredUsers.map((user) => {
-                const isFollower = followers.some(
-                  (u) => u.username == user.username
-                );
                 return (
                   <div
                     key={user._id}
@@ -179,19 +142,6 @@ export default function Friends() {
                       />
                       <h1 className="text-xl font-bold">{user.username}</h1>
                     </header>
-                    {!isFollower ? (
-                      <button
-                  
-                      onClick={() => followUser(user.username)}
-                        className="bg-blue-500 p-1 text-sm text-white rounded"
-                      >
-                        Follow
-                      </button>
-                    ) : (
-                      <button className="bg-blue-500 p-1 text-sm text-white rounded">
-                        Follow Back
-                      </button>
-                    )}
                   </div>
                 );
               })}
