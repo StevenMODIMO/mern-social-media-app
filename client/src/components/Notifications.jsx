@@ -22,7 +22,6 @@ export default function Notifications() {
 
       if (response.ok) {
         setNotifications(json.notifications);
-        console.log(json.notifications);
       } else {
         console.log(json.error);
       }

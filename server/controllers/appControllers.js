@@ -336,25 +336,11 @@ const followUser = async (req, res) => {
   const user = req.user.username;
   const { username } = req.params;
   try {
-    const getUserInfo = await User.findOne({ username: user });
-    const info = getUserInfo.username;
     const follow = await User.findOneAndUpdate(
       { username: username },
       {
         $push: {
           followers: {
-            username: info,
-          },
-        },
-      },
-      { new: true }
-    );
-
-    await User.findOneAndUpdate(
-      { username: username },
-      {
-        $push: {
-          following: {
             username: user,
           },
         },
