@@ -204,7 +204,7 @@ export default function Posts() {
               />
             )}
 
-            <main className="flex text-3xl justify-around bg-white p-2 rounded-2xl m-2">
+            <main className="flex text-3xl gap-3 bg-white p-2 rounded-2xl m-2">
               <div>
                 <input
                   ref={fileInputRef}
@@ -229,19 +229,7 @@ export default function Posts() {
               </div>
               <div>
                 <input type="file" className="hidden" />
-                <AiOutlineVideoCameraAdd />
-              </div>
-              <div>
-                <input type="file" className="hidden" />
-                <BsEmojiSmile />
-              </div>
-              <div>
-                <input type="file" className="hidden" />
                 <GoLocation />
-              </div>
-              <div>
-                <input type="file" className="hidden" />
-                <AiOutlineGif />
               </div>
             </main>
           </header>

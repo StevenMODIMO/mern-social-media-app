@@ -78,7 +78,6 @@ export default function User() {
 
   const userPosts = info.posts.map((post) => post.post_id);
   const filtered = posts.filter((item) => userPosts.includes(item._id));
-  console.log(filtered);
   return (
     <div className="pt-10 mt-5">
       {loading ? <Loader /> : <main>

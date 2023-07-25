@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const {
   getAllPosts,
-  getWithTags,
+  findByUsername,
   getallUsers,
   getSingleUser,
   createPost,
@@ -42,7 +42,7 @@ router.use(requireAuth);
 
 router.get("/", getAllPosts);
 
-router.get("/:tag", getWithTags);
+router.get("/:username", findByUsername);
 
 router.get("/users", getallUsers);
 

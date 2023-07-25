@@ -11,9 +11,11 @@ const getAllPosts = async (req, res) => {
   }
 };
 
-const getWithTags = async (req, res) => {
-  const { tag } = req.params;
+const findByUsername = async (req, res) => {
+  const { username } = req.params;
   try {
+    const user = await User.findOne({ username })
+    res.status(200).json(user)
   } catch (error) {
     res.status(400).json(error);
   }
@@ -436,7 +438,7 @@ const readNotification = async (req,res) => {
 
 module.exports = {
   getAllPosts,
-  getWithTags,
+  findByUsername,
   getallUsers,
   getSingleUser,
   createPost,
