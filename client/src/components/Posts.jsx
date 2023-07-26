@@ -57,7 +57,7 @@ export default function Posts() {
     const json = await response.json();
 
     if (response.ok) {
-      setPosts(json)
+      setPosts(json);
       setPost("");
       setImagePreview(null);
     } else {
@@ -144,7 +144,7 @@ export default function Posts() {
         <div>
           <header>
             <form
-              className="flex items-center"
+              className="flex items-center sm:justify-center"
               onSubmit={handlePost}
               onFocus={toggleOptions}
               onBlur={toggleOptions}
@@ -152,7 +152,7 @@ export default function Posts() {
               <input
                 value={post}
                 onChange={(e) => setPost(e.target.value)}
-                className="p-2 m-1 rounded-lg outline-none w-80"
+                className="p-2 m-1 rounded-lg outline-none w-80 sm:w-96"
                 placeholder="post something ..."
               />
               <button
@@ -211,7 +211,6 @@ export default function Posts() {
                   type="file"
                   className="hidden"
                   onChange={(e) => {
-                    // Handle the image preview when a file is selected
                     if (e.target.files && e.target.files.length > 0) {
                       const reader = new FileReader();
                       reader.onloadend = () => {
@@ -234,7 +233,7 @@ export default function Posts() {
             </main>
           </header>
 
-          <main className="mt-5">
+          <main className="mt-5 lg:w-full">
             {posts.map((post) => {
               const tags = post.tags;
               const strings = tags.join(tags);

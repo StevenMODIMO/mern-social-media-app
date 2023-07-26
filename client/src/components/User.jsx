@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { BsImage, BsBookmarkFill } from "react-icons/bs";
 import { AiFillLike, AiOutlineDelete } from "react-icons/ai";
-import Loader from "./Loader"
+import Loader from "./Loader";
 
 export default function User() {
   const { user } = useAuth();
@@ -13,11 +13,11 @@ export default function User() {
   const [followers, setFollowers] = useState([]);
   const [posts, setPosts] = useState([]);
   const [tab, setTab] = useState(0);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const getPosts = async () => {
-      setLoading(true)
+      setLoading(true);
       const response = await fetch("http://localhost:5000/app", {
         headers: {
           Authorization: `Bearer ${user.token}`,
@@ -28,7 +28,7 @@ export default function User() {
 
       if (response.ok) {
         setPosts(json);
-        setLoading(false)
+        setLoading(false);
       }
     };
     getPosts();
@@ -76,58 +76,61 @@ export default function User() {
 
   const userPosts = info.posts.map((post) => post.post_id);
   const filtered = posts.filter((item) => userPosts.includes(item._id));
+
   return (
-    <div className="pt-10 mt-5">
-      {loading ? <Loader /> : <main>
-        <div className="flex justify-center relative">
-          <header>
-            <form className="absolute left-48 top-16">
-              <label className="flex">
-                <BsImage />
-                <input type="file" className="hidden" />
-              </label>
-            </form>
-            <img
-              src={`http://localhost:5000/${info.image_path}`}
-              alt="Profile Image"
-              className="h-20 rounded-md mr-2"
-            />
-            <h1 className="text-2xl text-center">{user.person}</h1>
-          </header>
-        </div>
-        <section className="font-thin m-2 text-sm flex flex-col items-center">
-          <div className="flex gap-2">
-            <h1>Email:</h1>
-            <div>{info.email}</div>
+    <div className="pt-10 mt-5 h-screen">
+      {loading ? (
+        <Loader />
+      ) : (
+        <main>
+          <div className="flex justify-center relative">
+            <header>
+              <form className="absolute left-48 top-16">
+                <label className="flex">
+                  <BsImage />
+                  <input type="file" className="hidden" />
+                </label>
+              </form>
+              <img
+                src={`http://localhost:5000/${info.image_path}`}
+                alt="Profile Image"
+                className="h-20 rounded-md mr-2"
+              />
+              <h1 className="text-2xl text-center">{user.person}</h1>
+            </header>
           </div>
-          <div className="flex gap-2">
-            <h1>User Id:</h1>
-            <div>{info._id}</div>
-          </div>
-        </section>
+          <section className="font-thin m-2 text-sm flex flex-col items-center">
+            <div className="flex gap-2">
+              <h1>Email:</h1>
+              <div>{info.email}</div>
+            </div>
+            <div className="flex gap-2">
+              <h1>User Id:</h1>
+              <div>{info._id}</div>
+            </div>
+          </section>
 
-        <section>
-          <div className="flex gap-1 mx-auto my-3 bg-white p-1 w-fit rounded">
-            <h1>Created Posts:</h1>
-            <div>{info.posts.length}</div>
-          </div>
-          <div className="flex gap-1 mx-auto my-3 bg-white p-1 w-fit rounded">
-            <h1>Saved Posts:</h1>
-            <div>{info.saved_post.length}</div>
-          </div>
-        </section>
+          <section>
+            <div className="flex gap-1 mx-auto my-3 bg-white p-1 w-fit rounded">
+              <h1>Created Posts:</h1>
+              <div>{info.posts.length}</div>
+            </div>
+            <div className="flex gap-1 mx-auto my-3 bg-white p-1 w-fit rounded">
+              <h1>Saved Posts:</h1>
+              <div>{info.saved_post.length}</div>
+            </div>
+          </section>
 
-        <section className="flex rounded">
-          <h1>Your Posts</h1>
-        </section>
+          <section className="flex justify-end font-bold text-lg m-3 rounded">
+            <h1>Posts</h1>
+          </section>
 
-        {tab === 0 && (
           <main>
             {filtered.map((post) => {
               return (
-                <div key={post._id} className="bg-white rounded m-4 p-2">
+                <div key={post._id} className="bg-white rounded m-4 p-2 shadow-md">
                   <header
-                    className="flex justify-end text-xl"
+                    className="flex justify-end text-xl cursor-pointer"
                     onClick={() => deletePost(post._id)}
                   >
                     <AiOutlineDelete />
@@ -160,8 +163,8 @@ export default function User() {
               );
             })}
           </main>
-        )}
-      </main>}
+        </main>
+      )}
     </div>
   );
 }

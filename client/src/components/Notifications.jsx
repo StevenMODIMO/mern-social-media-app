@@ -3,7 +3,7 @@ import { useAuth } from "../context/AuthContext";
 import { PiMarkerCircleDuotone } from "react-icons/pi";
 import { BiRadioCircleMarked } from "react-icons/bi";
 
-export default function Notifications() {
+export default function Notifications(z) {
   const [notifications, setNotifications] = useState([]);
   const { user } = useAuth();
 
@@ -47,8 +47,8 @@ export default function Notifications() {
   };
 
   return (
-    <div className="pt-10 mt-5 h-screen">
-      <h1 className="underline">Your Notifications</h1>
+    <div className="pt-10 mt-5 lg:h-screen">
+      <h1 className="font-bold flex text-lg justify-end">Notifications</h1>
       <main>
         {notifications.map((not) => {
           const iso = not.createdAt;

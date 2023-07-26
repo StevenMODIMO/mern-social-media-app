@@ -46,7 +46,7 @@ export default function Navbar() {
   };
 
   return (
-    <div className="fixed top-0 left-0 right-0 bg-gray-800 text-white">
+    <div className="fixed top-0 left-0 right-0 bg-gray-800 text-white z-50">
     {showProfile && (
       <Profile
         id={profile._id}
@@ -57,12 +57,12 @@ export default function Navbar() {
       />
     )}
       <div className="container mx-auto py-4 flex justify-between items-center">
-        <Link to="/" className="flex items-center text-xl font-bold">
+        <Link to="/" className="flex items-center text-xl font-bold ml-2 sm:ml-3">
           <BsPeople className="mr-2" />
           <div>mernSocial</div>
         </Link>
         {!user ? (
-          <section className="flex gap-3">
+          <section className="flex gap-3 mr-3 sm:mr-8">
             <div className="flex items-center">
               <TfiWrite className="mr-2" />
               <Link to="/signup">Signup</Link>
@@ -73,20 +73,20 @@ export default function Navbar() {
             </div>
           </section>
         ) : (
-          <section className="flex gap-2 items-center">
+          <section className="flex gap-2 items-center sm:mr-4">
             <div className="flex items-center cursor-pointer">
               <img
                 src={`http://localhost:5000/${profile.image_path}`}
                 alt="Profile Image"
-                className="w-8 h-8 rounded-full mr-2"
+                className="w-5 h-8 rounded-full mr-2"
               />
-              <div onClick={() => setShowProfile(!showProfile)}>
+              <div >
                 {user.person}
               </div>
             </div>
-            <BiDownArrow />
-            <div className="flex items-center">
-              <AiOutlineLogout className="mr-2" />
+            <BiDownArrow onClick={() => setShowProfile(!showProfile)} />
+            <div className="flex items-center mr-3 sm:mr-4">
+              <AiOutlineLogout className="" />
               <button onClick={logout}>Logout</button>
             </div>
           </section>

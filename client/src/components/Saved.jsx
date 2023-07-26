@@ -68,12 +68,12 @@ export default function Saved() {
   };
 
   return (
-    <section className="pt-10 mt-5">
+    <section className="pt-10 mt-5 h-screen">
       {loading ? (
         <Loader />
       ) : (
         <div>
-          <h1 className="underline">Saved posts</h1>
+          <h1 className="flex justify-end font-bold text-lg m-3">Saved posts</h1>
           <main>
             {info.length === 0 ? (
               <p>No saved posts yet.</p>

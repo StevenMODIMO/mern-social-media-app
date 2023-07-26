@@ -1,6 +1,8 @@
 export default function Profile({ id, profile, email, username, followers }) {
   return (
-    <div className="absolute top-14 transition-all duration-150 ease-in-out right-4 bg-white text-gray-800 p-4 rounded shadow-lg">
+    <div
+      className="fixed top-14 right-4 bg-white text-gray-800 p-4 rounded shadow-lg"
+    >
       <img
         src={`http://localhost:5000/${profile}`}
         alt="Profile Image"
@@ -13,17 +15,9 @@ export default function Profile({ id, profile, email, username, followers }) {
       </div>
       <div>
         <section className="flex mx-auto my-2 font-light gap-2 bg-gray-100 w-fit p-1 rounded m-1">
-        <div className="font-light">Followers:</div>
-        <h1>{followers.length}</h1>
+          <div className="font-light">Followers:</div>
+          <h1>{followers.length}</h1>
         </section>
-      </div>
-      <div className="mt-4 flex justify-center">
-        <button className="bg-blue-500 text-white px-4 py-2 rounded mr-2">
-          Edit Profile
-        </button>
-        <button className="bg-red-500 text-white px-4 py-2 rounded">
-          Delete Profile
-        </button>
       </div>
     </div>
   );
