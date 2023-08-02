@@ -10,7 +10,7 @@ export default function Notifications(z) {
   useEffect(() => {
     const getNotifications = async () => {
       const response = await fetch(
-        `https://mern-social-media-5u52.onrender.com/app/user/${user.id}`,
+        `https://mern-social-server-tfxx.onrender.com/app/user/${user.id}`,
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
@@ -30,7 +30,7 @@ export default function Notifications(z) {
   }, []);
 
   const markRead = async (id) => {
-    const response = await fetch(`https://mern-social-media-5u52.onrender.com/app/read/${id}`, {
+    const response = await fetch(`https://mern-social-server-tfxx.onrender.com/app/read/${id}`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${user.token}`,

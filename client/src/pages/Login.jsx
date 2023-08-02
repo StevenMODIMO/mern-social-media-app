@@ -12,7 +12,7 @@ export default function Login() {
   const handleSubmission = async (e) => {
     e.preventDefault();
 
-    const response = await fetch("https://mern-social-media-5u52.onrender.com/auth/login", {
+    const response = await fetch("https://mern-social-server-tfxx.onrender.com/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

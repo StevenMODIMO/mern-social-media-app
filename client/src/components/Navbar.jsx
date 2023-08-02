@@ -21,7 +21,7 @@ export default function Navbar() {
   useEffect(() => {
     const getProfile = async () => {
       const response = await fetch(
-        `https://mern-social-media-5u52.onrender.com/app/user/${user.id}`,
+        `https://mern-social-server-tfxx.onrender.com/app/user/${user.id}`,
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
@@ -76,7 +76,7 @@ export default function Navbar() {
           <section className="flex gap-2 items-center sm:mr-4">
             <div className="flex items-center cursor-pointer">
               <img
-                src={`https://mern-social-media-5u52.onrender.com/${profile.image_path}`}
+                src={`https://mern-social-server-tfxx.onrender.com/${profile.image_path}`}
                 alt="Profile Image"
                 className="w-5 h-8 rounded-full mr-2"
               />

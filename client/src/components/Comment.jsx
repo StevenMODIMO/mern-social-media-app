@@ -9,7 +9,7 @@ export default function Comment({ id, setPosts }) {
   const [disabled, setDisabled] = useState(true);
   const postComment = async (e) => {
     e.preventDefault();
-    const response = await fetch(`https://mern-social-media-5u52.onrender.com/app/comment/${id}`, {
+    const response = await fetch(`https://mern-social-server-tfxx.onrender.com/app/comment/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -32,7 +32,7 @@ export default function Comment({ id, setPosts }) {
 
   useEffect(() => {
     const getComments = async () => {
-      const response = await fetch(`https://mern-social-media-5u52.onrender.com/app/comments/${id}`, {
+      const response = await fetch(`https://mern-social-server-tfxx.onrender.com/app/comments/${id}`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -49,7 +49,7 @@ export default function Comment({ id, setPosts }) {
 
   const likeComment = async (comment_id) => {
     const response = await fetch(
-      `https://mern-social-media-5u52.onrender.com/app/like-comment/${id}/${comment_id}`,
+      `https://mern-social-server-tfxx.onrender.com/app/like-comment/${id}/${comment_id}`,
       {
         method: "POST",
         headers: {
@@ -69,7 +69,7 @@ export default function Comment({ id, setPosts }) {
 
   const deleteComment = async (comment_id) => {
     const response = await fetch(
-      `https://mern-social-media-5u52.onrender.com/app/delete-comment/${id}/${comment_id}`,
+      `https://mern-social-server-tfxx.onrender.com/app/delete-comment/${id}/${comment_id}`,
       {
         method: "POST",
         headers: {
@@ -95,7 +95,7 @@ export default function Comment({ id, setPosts }) {
             <div key={comment._id} className="m-4 p-1 rounded">
               <header className="flex">
                 <img
-                  src={`https://mern-social-media-5u52.onrender.com/username/${comment.commented_by}`}
+                  src={`https://mern-social-server-tfxx.onrender.com/username/${comment.commented_by}`}
                   className="h-10 rounded-full bg-gray-200 p-1"
                   alt="profile"
                 />
