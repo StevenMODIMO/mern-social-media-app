@@ -19,7 +19,7 @@ export default function Signup() {
     formData.append("username", name);
     formData.append("email", email);
     formData.append("password", password);
-    const response = await fetch("http://localhost:5000/auth/signup", {
+    const response = await fetch("https://mern-social-media-5u52.onrender.com/auth/signup", {
       method: "POST",
       body: formData,
     });

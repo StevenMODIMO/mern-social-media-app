@@ -14,7 +14,7 @@ export default function Friends() {
   useEffect(() => {
     const getUsers = async () => {
       setLoading(true);
-      const response = await fetch(`http://localhost:5000/app/users`, {
+      const response = await fetch(`https://mern-social-media-5u52.onrender.com/app/users`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -35,7 +35,7 @@ export default function Friends() {
   useEffect(() => {
     const getInfo = async () => {
       const response = await fetch(
-        `http://localhost:5000/app/user/${user.id}`,
+        `https://mern-social-media-5u52.onrender.com/app/user/${user.id}`,
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
@@ -58,7 +58,7 @@ export default function Friends() {
     setLoading(true);
     setInputValue(name);
     if (name.trim() !== "") {
-      const response = await fetch(`http://localhost:5000/app/${name}`, {
+      const response = await fetch(`https://mern-social-media-5u52.onrender.com/app/${name}`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -115,7 +115,7 @@ export default function Friends() {
                 >
                   <header className="flex">
                     <img
-                      src={`http://localhost:5000/${p.image_path}`}
+                      src={`https://mern-social-media-5u52.onrender.com/${p.image_path}`}
                       alt="Profile Image"
                       className="w-8 h-8 rounded-full mr-2"
                     />
@@ -136,7 +136,7 @@ export default function Friends() {
                   >
                     <header className="flex">
                       <img
-                        src={`http://localhost:5000/${user.image_path}`}
+                        src={`https://mern-social-media-5u52.onrender.com/${user.image_path}`}
                         alt="Profile Image"
                         className="w-8 h-8 rounded-full mr-2"
                       />

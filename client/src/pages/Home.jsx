@@ -34,7 +34,7 @@ export default function Home() {
   }, []);
   return (
     <div className="h-fit bg-gray-100 pt-16 lg:grid grid-cols-2">
-      <header className="flex justify-around shadow-lg gap-1 pt-2 text-2xl z-10 bg-gray-500 fixed w-full text-white lg:justify-start lg:w-fit lg:flex-col lg:h-screen">
+      <header className="flex justify-around shadow-lg gap-1 pt-2 text-2xl z-10 bg-gray-500 fixed w-full text-white lg:justify-start lg:w-fit lg:flex-col lg:h-screen lg:text-lg">
         <div
           onClick={() => handleIconClick("search")}
           className={
@@ -100,8 +100,8 @@ export default function Home() {
         {active === "saved" && <Saved />}
       </main>
 
-      <section className="hidden lg:block lg:fixed lg:right-0 lg:w-3/6 lg:bg-white lg:h-full lg:overflow-y-auto">
-        <header className="flex justify-end font-bold text-2xl mr-2 fixed bg-gray-100 w-96">
+      <section className="hidden lg:block lg:fixed lg:right-0 lg:w-2/6 lg:bg-white lg:h-full lg:overflow-y-auto">
+        <header className="flex justify-end font-bold text-2xl mr-2 fixed bg-white w-96">
           <h1>News and Articles</h1>
         </header>
         <main className="mt-12">

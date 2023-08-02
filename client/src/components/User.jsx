@@ -18,7 +18,7 @@ export default function User() {
   useEffect(() => {
     const getPosts = async () => {
       setLoading(true);
-      const response = await fetch("http://localhost:5000/app", {
+      const response = await fetch("https://mern-social-media-5u52.onrender.com/app", {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -37,7 +37,7 @@ export default function User() {
   useEffect(() => {
     const getUserInfo = async () => {
       const response = await fetch(
-        `http://localhost:5000/app/user/${user.id}`,
+        `https://mern-social-media-5u52.onrender.com/app/user/${user.id}`,
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
@@ -58,7 +58,7 @@ export default function User() {
   }, []);
 
   const deletePost = async (id) => {
-    const response = await fetch(`http://localhost:5000/app/delete/${id}`, {
+    const response = await fetch(`https://mern-social-media-5u52.onrender.com/app/delete/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${user.token}`,
@@ -92,7 +92,7 @@ export default function User() {
                 </label>
               </form>
               <img
-                src={`http://localhost:5000/${info.image_path}`}
+                src={`https://mern-social-media-5u52.onrender.com/${info.image_path}`}
                 alt="Profile Image"
                 className="h-20 rounded-md mr-2"
               />
@@ -138,7 +138,7 @@ export default function User() {
                   <h1 className="p-4">{post.post}</h1>
                   {post.post_image_url && (
                     <img
-                      src={`http://localhost:5000/${post.post_image_url}`}
+                      src={`https://mern-social-media-5u52.onrender.com/${post.post_image_url}`}
                       alt="Profile Image"
                       className="h-44 w-44 mx-auto rounded"
                     />

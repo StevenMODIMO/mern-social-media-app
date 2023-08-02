@@ -46,7 +46,7 @@ export default function Posts() {
     formData.append("tags", t);
     formData.append("post_image", fileInputRef.current.files[0]);
 
-    const response = await fetch("http://localhost:5000/app/post", {
+    const response = await fetch("https://mern-social-media-5u52.onrender.com/app/post", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${user.token}`,
@@ -68,7 +68,7 @@ export default function Posts() {
   useEffect(() => {
     const getPosts = async () => {
       setLoading(true);
-      const response = await fetch("http://localhost:5000/app", {
+      const response = await fetch("https://mern-social-media-5u52.onrender.com/app", {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -87,7 +87,7 @@ export default function Posts() {
   }, []);
 
   const likePost = async (id) => {
-    const response = await fetch(`http://localhost:5000/app/like/${id}`, {
+    const response = await fetch(`https://mern-social-media-5u52.onrender.com/app/like/${id}`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${user.token}`,
@@ -102,7 +102,7 @@ export default function Posts() {
   };
 
   const unlikePost = async (id) => {
-    const response = await fetch(`http://localhost:5000/app/unlike/${id}`, {
+    const response = await fetch(`https://mern-social-media-5u52.onrender.com/app/unlike/${id}`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${user.token}`,
@@ -117,7 +117,7 @@ export default function Posts() {
   };
 
   const savePost = async (id) => {
-    const response = await fetch(`http://localhost:5000/app/save-post/${id}`, {
+    const response = await fetch(`https://mern-social-media-5u52.onrender.com/app/save-post/${id}`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${user.token}`,
@@ -244,7 +244,7 @@ export default function Posts() {
                     <header className="flex justify-between p-2 border-b border-gray-300">
                       <div className="flex">
                         <img
-                          src={`http://localhost:5000/username/${post.posted_by}`}
+                          src={`https://mern-social-media-5u52.onrender.com/username/${post.posted_by}`}
                           className="w-8 h-8 rounded-full"
                           alt="profile"
                         />
@@ -255,7 +255,7 @@ export default function Posts() {
                       <h1 className="p-4">{post.post}</h1>
                       {post.post_image_url && (
                         <img
-                          src={`http://localhost:5000/${post.post_image_url}`}
+                          src={`https://mern-social-media-5u52.onrender.com/${post.post_image_url}`}
                           alt="Profile Image"
                           className="h-56 w-full rounded"
                         />

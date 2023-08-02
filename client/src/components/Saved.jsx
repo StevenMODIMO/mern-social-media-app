@@ -12,7 +12,7 @@ export default function Saved() {
   useEffect(() => {
     const getPosts = async () => {
       setLoading(true)
-      const response = await fetch("http://localhost:5000/app", {
+      const response = await fetch("https://mern-social-media-5u52.onrender.com/app", {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -33,7 +33,7 @@ export default function Saved() {
   useEffect(() => {
     const getUserInfo = async () => {
       const response = await fetch(
-        `http://localhost:5000/app/user/${user.id}`,
+        `https://mern-social-media-5u52.onrender.com/app/user/${user.id}`,
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
@@ -54,7 +54,7 @@ export default function Saved() {
 
   const unsavePost = async (id) => {
     const response = await fetch(
-      `http://localhost:5000/app/unsave-post/${id}`,
+      `https://mern-social-media-5u52.onrender.com/app/unsave-post/${id}`,
       {
         method: "POST",
         headers: {
@@ -87,7 +87,7 @@ export default function Saved() {
                     <header className="flex justify-between p-2 border-b border-gray-300">
                       <div className="flex">
                         <img
-                          src={`http://localhost:5000/username/${post.posted_by}`}
+                          src={`https://mern-social-media-5u52.onrender.com/username/${post.posted_by}`}
                           className="w-8 h-8 rounded-full"
                           alt="profile"
                         />
@@ -105,7 +105,7 @@ export default function Saved() {
                       <h1 className="p-4">{post.post}</h1>
                       {post.post_image_url && (
                         <img
-                          src={`http://localhost:5000/${post.post_image_url}`}
+                          src={`https://mern-social-media-5u52.onrender.com/${post.post_image_url}`}
                           alt="Profile Image"
                           className="h-48 w-full rounded"
                         />

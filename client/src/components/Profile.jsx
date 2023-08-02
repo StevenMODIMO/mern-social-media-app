@@ -4,7 +4,7 @@ export default function Profile({ id, profile, email, username, followers }) {
       className="fixed top-14 right-4 bg-white text-gray-800 p-4 rounded shadow-lg"
     >
       <img
-        src={`http://localhost:5000/${profile}`}
+        src={`https://mern-social-media-5u52.onrender.com/${profile}`}
         alt="Profile Image"
         className="w-20 h-20 rounded-full mx-auto mb-4"
       />
