@@ -47,7 +47,7 @@ const userSchema = mongoose.Schema({
         type: Date,
         default: Date.now,
       },
-      read: { type: Boolean, default: false}
+      read: { type: Boolean, default: false },
     },
   ],
 });
@@ -67,7 +67,9 @@ userSchema.statics.signup = async function signup(
   }
 
   if (!validator.isStrongPassword(password)) {
-    throw Error("Password must contain alaphanumeric and special characters");
+    throw Error(
+      "Password must contain uppercase and lowercase letters ,numbers and special characters"
+    );
   }
 
   const user = await this.findOne({ email });
