@@ -233,7 +233,7 @@ export default function Posts() {
             </main>
           </header>
 
-          <main className="mt-5 lg:w-full">
+          <main className="mt-5 lg:ml-24 lg:w-96">
             {posts.map((post) => {
               const tags = post.tags;
               const strings = tags.join(tags);
