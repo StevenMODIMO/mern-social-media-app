@@ -8,8 +8,10 @@ export default function Login() {
   const [error, setError] = useState(null);
   const { dispatch } = useAuth();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false)
 
   const handleSubmission = async (e) => {
+    setLoading(true)
     e.preventDefault();
 
     const response = await fetch("https://mern-social-server-tfxx.onrender.com/auth/login", {
@@ -28,12 +30,14 @@ export default function Login() {
       navigate("/");
       localStorage.setItem("user", JSON.stringify(json));
       dispatch({ type: "LOGIN", payload: json });
+      setLoading(false)
     }
 
     if (!response.ok) {
       setName("");
       setPassword("");
       setError(json.error);
+      setLoading(false)
     }
   };
 
@@ -59,11 +63,40 @@ export default function Login() {
           className="mb-4 p-2 border border-gray-300 rounded"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button className="bg-blue-500 text-white py-2 px-4 rounded">
-          Submit
-        </button>
+        {loading ? <div className="bg-blue-500 text-white mx-auto rounded">
+          <ProcessingButton />
+        </div> :
+          <button className="bg-blue-500 text-white py-2 px-4 rounded">
+            Submit
+          </button>}
         {error && <div className="bg-red-500 p-2 mt-4 text-white rounded">{error}</div>}
       </form>
     </div>
   );
 }
+
+const ProcessingButton = () => {
+  return (
+    <button
+      type="button"
+      className="bg-blue-500 text-white disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 px-4 py-2 rounded"
+      disabled
+    >
+      <svg className="animate-spin h-5 w-5 mr-3 border-t-2 border-white rounded-full" viewBox="0 0 24 24">
+        <circle
+          className="opacity-25"
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="blue"
+          strokeWidth="4"
+        ></circle>
+        <path
+          className="opacity-75"
+          fill="white"
+          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-1.647zm10 1.647A7.96 7.96 0 0120 12h-4c0 3.042-1.135 5.824-3 7.938l-3-1.647z"
+        ></path>
+      </svg>
+    </button>
+  );
+};
