@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import Alert from "../components/Alert";
 
 export default function Signup() {
   const [name, setName] = useState("");
@@ -51,6 +52,7 @@ export default function Signup() {
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
+      <Alert />
       <form
         className="bg-white rounded shadow p-6 flex flex-col"
         onSubmit={handleSubmission}
